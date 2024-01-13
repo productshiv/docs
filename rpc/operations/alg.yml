@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
-  title: Algorand
-  version: 1.0
+  title: RPC
+  version: 1.1
 paths:
   accounts:
     post:
