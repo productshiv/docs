@@ -1,0 +1,16 @@
+openapi: 3.1.0
+info:
+  title: Subscriptions
+  version: "1.0"
+paths:
+  create:
+    post:
+      summary: create subscriptions
+      description: Creates subscriptions.
+      tags: ["Subscriptions"]
+      responses:
+        200:
+          $ref: "../../components/responses.yml#/components/OK"
+        400:
+          $ref: "../../components/responses.yml#/components/Error400"
+      operationId: sub_create

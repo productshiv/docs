@@ -1,0 +1,16 @@
+openapi: 3.1.0
+info:
+  title: Ethereum
+  version: "1.0"
+paths:
+  balances:
+    post:
+      summary: balances
+      description: Returns a list of balances.
+      tags: ["Ethereum"]
+      responses:
+        200:
+          $ref: "../../components/responses.yml#/components/OK"
+        400:
+          $ref: "../../components/responses.yml#/components/Error400"
+      operationId: eth_balances

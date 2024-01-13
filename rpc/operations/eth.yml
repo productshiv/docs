@@ -1,0 +1,31 @@
+openapi: 3.1.0
+info:
+  title: Ethereum
+  version: "1.0"
+paths:
+  accounts:
+    post:
+      summary: eth_accounts
+      description: Returns a list of addresses owned by client. Exclusive for Algorand.
+      tags: ["eth"]
+      parameters:
+        - name: apiKey
+          in: path
+          schema:
+            type: string
+            default: docs-demo
+            description: |
+              <style>
+                .custom-style {
+                  color: #048FF4;
+                }
+              </style>
+              For higher throughput, <span class="custom-style"><a href="https://alchemy.com/?a=docs-demo" target="_blank">create your own API key</a></span>
+          required: true
+      operationId: eth_accounts
+  version:
+    get:
+      summary: eth_version
+      description: Returns version or something.
+      tags: ["eth"]
+      operationId: eth_version
