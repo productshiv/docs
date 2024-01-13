@@ -3,6 +3,8 @@ info:
   version: 1.0.0
 openapi: 3.1.0
 paths:
+
+  # Ethereum
   /eth_accounts/{apiKey}:
     $ref: rpc/operations/ethereum/ethereum.yml#/paths/~1eth_accounts~1{apiKey}
   /eth_blockNumber/{apiKey}:
@@ -77,131 +79,23 @@ paths:
     $ref: rpc/operations/ethereum/ethereum.yml#/paths/~1eth_sendRawTransaction~1{apiKey}
   /eth_uninstallFilter/{apiKey}:
     $ref: rpc/operations/ethereum/ethereum.yml#/paths/~1eth_uninstallFilter~1{apiKey}
-  # /genesis:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1genesis
-  # /health:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1health
-  # /metrics:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1metrics
   /net_listening/{apiKey}:
     $ref: rpc/operations/ethereum/ethereum.yml#/paths/~1net_listening~1{apiKey}
   /net_version/{apiKey}:
     $ref: rpc/operations/ethereum/ethereum.yml#/paths/~1net_version~1{apiKey}
-  # /ready:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1ready
-  # /swagger.json:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1swagger.json
-  # /v2/accounts:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1accounts
-  # /v2/accounts/{account-id}:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1accounts~1{account-id}
-  # /v2/accounts/{account-id}/apps-local-state:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1accounts~1{account-id}~1apps-local-state
-  # /v2/accounts/{account-id}/assets:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1accounts~1{account-id}~1assets
-  # /v2/accounts/{account-id}/created-applications:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1accounts~1{account-id}~1created-applications
-  # /v2/accounts/{account-id}/created-assets:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1accounts~1{account-id}~1created-assets
-  # /v2/accounts/{account-id}/transactions:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1accounts~1{account-id}~1transactions
-  # /v2/accounts/{address}:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1accounts~1{address}
-  # /v2/accounts/{address}/applications/{application-id}:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1accounts~1{address}~1applications~1{application-id}
-  # /v2/accounts/{address}/assets/{asset-id}:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1accounts~1{address}~1assets~1{asset-id}
-  # /v2/accounts/{address}/transactions/pending:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1accounts~1{address}~1transactions~1pending
-  # /v2/applications:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1applications
-  # /v2/applications/{application-id}:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1applications~1{application-id}
-  # /v2/applications/{application-id}/box:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1applications~1{application-id}~1box
-  # /v2/applications/{application-id}/boxes:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1applications~1{application-id}~1boxes
-  # /v2/applications/{application-id}/logs:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1applications~1{application-id}~1logs
-  # /v2/assets:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1assets
-  # /v2/assets/{asset-id}:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1assets~1{asset-id}
-  # /v2/assets/{asset-id}/balances:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1assets~1{asset-id}~1balances
-  # /v2/assets/{asset-id}/transactions:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1assets~1{asset-id}~1transactions
-  # /v2/blocks/{round-number}:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1blocks~1{round-number}
-  # /v2/blocks/{round}:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1blocks~1{round}
-  # /v2/blocks/{round}/hash:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1blocks~1{round}~1hash
-  # /v2/blocks/{round}/lightheader/proof:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1blocks~1{round}~1lightheader~1proof
-  # /v2/blocks/{round}/transactions/{txid}/proof:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1blocks~1{round}~1transactions~1{txid}~1proof
-  # /v2/catchup/{catchpoint}:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1catchup~1{catchpoint}
-  # /v2/deltas/txn/group/{id}:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1deltas~1txn~1group~1{id}
-  # /v2/deltas/{round}:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1deltas~1{round}
-  # /v2/deltas/{round}/txn/group:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1deltas~1{round}~1txn~1group
-  # /v2/devmode/blocks/offset:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1devmode~1blocks~1offset
-  # /v2/devmode/blocks/offset/{offset}:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1devmode~1blocks~1offset~1{offset}
-  # /v2/experimental:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1experimental
-  # /v2/ledger/supply:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1ledger~1supply
-  # /v2/ledger/sync:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1ledger~1sync
-  # /v2/ledger/sync/{round}:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1ledger~1sync~1{round}
-  # /v2/participation:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1participation
-  # /v2/participation/{participation-id}:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1participation~1{participation-id}
-  # /v2/shutdown:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1shutdown
-  # /v2/stateproofs/{round}:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1stateproofs~1{round}
-  # /v2/status:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1status
-  # /v2/status/wait-for-block-after/{round}:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1status~1wait-for-block-after~1{round}
-  # /v2/teal/compile:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1teal~1compile
-  # /v2/teal/disassemble:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1teal~1disassemble
-  # /v2/teal/dryrun:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1teal~1dryrun
-  # /v2/transactions:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1transactions
-  # /v2/transactions/params:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1transactions~1params
-  # /v2/transactions/pending:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1transactions~1pending
-  # /v2/transactions/pending/{txid}:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1transactions~1pending~1{txid}
-  # /v2/transactions/simulate:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1transactions~1simulate
-  # /v2/transactions/{txid}:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1transactions~1{txid}
-  # /versions:
-  #   $ref: rpc/operations/algorand/algorand.yml#/paths/~1versions
   /web3_clientVersion/{apiKey}:
     $ref: rpc/operations/ethereum/ethereum.yml#/paths/~1web3_clientVersion~1{apiKey}
   /web3_sha/{apiKey}:
     $ref: rpc/operations/ethereum/ethereum.yml#/paths/~1web3_sha~1{apiKey}
-  # accounts:
-  #   $ref: rpc/operations/ethereum/eth.yml#/paths/accounts
-  # version:
-  #   $ref: rpc/operations/ethereum/eth.yml#/paths/version
 
+
+    '# algorand': Start of chain
+  /genesis:
+    $ref: rpc/operations/algorand/algorand.yml#/paths/~1genesis
+  /health:
+    $ref: rpc/operations/algorand/algorand.yml#/paths/~1health
+  /metrics:
+    $ref: rpc/operations/algorand/algorand.yml#/paths/~1metrics
 
 servers:
   - url: https://api.tatum.io/v3/blockchain/node/ethereum-mainnet
