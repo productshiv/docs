@@ -7,7 +7,7 @@ paths:
     post:
       summary: eth_accounts
       description: Returns a list of addresses owned by client. Exclusive for Algorand.
-      tags: ["eth"]
+      tags: ["Ethereum"]
       parameters:
         - name: apiKey
           in: path
@@ -27,5 +27,5 @@ paths:
     get:
       summary: eth_version
       description: Returns version or something.
-      tags: ["eth"]
+      tags: ["Ethereum"]
       operationId: eth_version

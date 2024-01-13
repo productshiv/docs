@@ -1,13 +1,13 @@
 openapi: 3.1.0
 info:
-  title: Incoming Transfers
+  title: Incoming Wallet Transfers
   version: "1.0.0"
 paths:
   create:
     post:
       summary: create subscriptions
       description: Creates subscriptions.
-      tags: ["Subscriptions"]
+      tags: ["Incoming Wallet Transfers"]
       responses:
         200:
           $ref: "../../components/responses.yml#/components/OK"

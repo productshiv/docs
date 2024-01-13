@@ -1,13 +1,13 @@
 openapi: 3.1.0
 info:
-  title: Ethereum
+  title: NFT API
   version: "1.0.0"
 paths:
   balances:
     post:
       summary: balances
       description: Returns a list of balances.
-      tags: ["Ethereum"]
+      tags: ["NFT API"]
       responses:
         200:
           $ref: "../../components/responses.yml#/components/OK"

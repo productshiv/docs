@@ -7,7 +7,7 @@ paths:
     post:
       summary: balances
       description: Returns a list of balances.
-      tags: ["Algorand"]
+      tags: ["Token API"]
       responses:
         200:
           $ref: "../../components/responses.yml#/components/OK"

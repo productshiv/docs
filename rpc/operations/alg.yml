@@ -7,7 +7,7 @@ paths:
     post:
       summary: alg_accounts
       description: Returns a list of addresses owned by client. Exclusive for Algorand.
-      tags: ["alg"]
+      tags: ["Algorand"]
       parameters:
         - name: apiKey
           in: path
@@ -27,5 +27,5 @@ paths:
     get:
       summary: alg_version
       description: Returns version or something.
-      tags: ["alg"]
+      tags: ["Algorand"]
       operationId: alg_version
