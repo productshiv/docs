@@ -1,0 +1,16 @@
+openapi: 3.1.0
+info:
+  title: RPC
+  version: "1.0.0"
+paths:
+  # Ethereum
+  /eth_accounts/{apiKey}:
+    $ref: "rpc/operations/ethereum/eth.yml#/paths/accounts"
+  /eth_version:
+    $ref: "rpc/operations/ethereum/eth.yml#/paths/version"
+
+  # Algorand
+  /alg_accounts/{apiKey}:
+    $ref: "rpc/operations/algorand/alg.yml#/paths/accounts"
+  /alg_version:
+    $ref: "rpc/operations/algorand/alg.yml#/paths/version"

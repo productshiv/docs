@@ -42,5 +42,5 @@ if os.path.exists(operations_dir):
 else:
     print(f"Operations directory not found: {operations_dir}")
 
-with open('rpc/main.yaml', 'w') as file:
+with open('rpc/main.yml', 'w') as file:
     yaml.dump(main_spec, file, default_flow_style=False)
