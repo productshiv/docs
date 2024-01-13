@@ -234,9 +234,9 @@ components:
         - method
         - params
 info:
-  title: RPC OAS by Shiv
-  version: 1.0.0
-openapi: 3.0.3
+  title: RPC
+  version: 1.0
+openapi: 3.1.0
 paths:
   /eth_blockNumber/{apiKey}:
     post:
