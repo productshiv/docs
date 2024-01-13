@@ -3,10 +3,10 @@ info:
   title: Data API
   version: "1.0.0"
 paths:
-  # Ethereum
+  # NFT API
   /balances/eth:
-    $ref: "data_api/operations/ethereum.yml#/paths/balances"
+    $ref: "data_api/operations/nft.yml#/paths/balances"
 
-  # Algorand
+  # Token API
   /balances/alg:
-    $ref: "data_api/operations/algorand.yml#/paths/balances"
+    $ref: "data_api/operations/token.yml#/paths/balances"

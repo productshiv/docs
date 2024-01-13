@@ -3,6 +3,6 @@ info:
   title: Notifications
   version: "1.0.0"
 paths:
-  # Subscriptions
+  # Incoming
   /subscription/create:
-    $ref: "notifications/operations/subscriptions.yml#/paths/create"
+    $ref: "notifications/operations/incoming.yml#/paths/create"
