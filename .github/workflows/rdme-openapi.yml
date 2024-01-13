@@ -22,18 +22,18 @@ jobs:
           README_API_KEY: ${{ secrets.README_API_KEY }}
         uses: readmeio/rdme@v8
         with:
-          rdme: openapi data_api/openapi.yml --key=${{ secrets.README_API_KEY }} --id=6594141cd3dc9c00600a98c5
+          rdme: openapi data_api/openapi.yml --key=${{ secrets.README_API_KEY }} --id=65a23fcd4be340006ace567d
 
       - name: Notifications
         env:
           README_API_KEY: ${{ secrets.README_API_KEY }}
         uses: readmeio/rdme@v8
         with:
-          rdme: openapi notifications/openapi.yml --key=${{ secrets.README_API_KEY }} --id=6596cf7a1065e5000fe12649
+          rdme: openapi notifications/openapi.yml --key=${{ secrets.README_API_KEY }} --id=65a23fdec7c5c600614247fd
 
       - name: RPC
         env:
           README_API_KEY: ${{ secrets.README_API_KEY }}
         uses: readmeio/rdme@v8
         with:
-          rdme: openapi rpc/openapi.yml --key=${{ secrets.README_API_KEY }} --id=65982f7b8d81bf00695175d3
+          rdme: openapi rpc/openapi.yml --key=${{ secrets.README_API_KEY }} --id=65a23fe855123d00232db856
