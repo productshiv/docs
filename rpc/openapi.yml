@@ -4,7 +4,7 @@ info:
 openapi: 3.1.0
 paths:
   /eth_accounts/{apiKey}:
-    $ref: rpc/operations/ethereum/ethereum.yml#/paths~1eth_accounts/{apiKey}
+    $ref: rpc/operations/ethereum/ethereum.yml#/paths/~1eth_accounts~1{apiKey}
   /eth_blockNumber/{apiKey}:
     $ref: rpc/operations/ethereum/ethereum.yml#/paths/eth_blockNumber/{apiKey}
   /eth_call/{apiKey}:

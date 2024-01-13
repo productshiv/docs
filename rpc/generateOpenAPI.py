@@ -1,6 +1,10 @@
 import os
 import yaml
 
+def escape_path(path):
+    # Escapes forward slashes by replacing them with ~1
+    return path.replace("/", "~1")
+
 def get_chain_paths(chain_folder):
     paths = {}
     for file_name in os.listdir(chain_folder):
@@ -11,8 +15,8 @@ def get_chain_paths(chain_folder):
                     chain_spec = yaml.safe_load(file)
                     if 'paths' in chain_spec:
                         for path, path_item in chain_spec['paths'].items():
-                            # Construct the reference path
-                            ref_path = os.path.join(chain_folder, file_name) + "#/paths" + path
+                            # Construct the reference path with escaped slashes
+                            ref_path = os.path.join(chain_folder, file_name) + "#/paths/" + escape_path(path)
                             paths[path] = {'$ref': ref_path}
                     else:
                         print(f"No 'paths' found in {file_name}")
