@@ -89,7 +89,7 @@ paths:
     $ref: rpc/operations/ethereum/ethereum.yml#/paths/~1web3_sha~1{apiKey}
 
 
-    '# algorand': Start of chain
+  # algorand': Start of chain
   /genesis:
     $ref: rpc/operations/algorand/algorand.yml#/paths/~1genesis
   /health:
