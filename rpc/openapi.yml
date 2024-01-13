@@ -201,3 +201,7 @@ paths:
   #   $ref: rpc/operations/ethereum/eth.yml#/paths/accounts
   # version:
   #   $ref: rpc/operations/ethereum/eth.yml#/paths/version
+
+
+servers:
+  - url: https://api.tatum.io/v3/blockchain/node/ethereum-mainnet
