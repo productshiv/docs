@@ -197,7 +197,7 @@ paths:
     $ref: rpc/operations/ethereum/ethereum.yml#/paths/~1web3_clientVersion~1{apiKey}
   /web3_sha/{apiKey}:
     $ref: rpc/operations/ethereum/ethereum.yml#/paths/~1web3_sha~1{apiKey}
-  accounts:
-    $ref: rpc/operations/ethereum/eth.yml#/paths/accounts
-  version:
-    $ref: rpc/operations/ethereum/eth.yml#/paths/version
+  # accounts:
+  #   $ref: rpc/operations/ethereum/eth.yml#/paths/accounts
+  # version:
+  #   $ref: rpc/operations/ethereum/eth.yml#/paths/version
