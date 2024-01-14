@@ -42,7 +42,7 @@ if os.path.exists(operations_dir):
         if os.path.isdir(chain_folder):
             chain_paths = get_chain_paths(chain_folder)
             
-            # Add a single line with comment and 'Start of chain' as the value
+            # Add a comment without single quotes
             main_spec['paths'][f'# {chain}'] = 'Start of chain'
             
             main_spec['paths'].update(chain_paths)

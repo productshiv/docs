@@ -19,33 +19,43 @@ paths:
   /v2/accounts/{account-id}:
     $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1accounts~1{account-id}
   /v2/accounts/{account-id}/apps-local-state:
-    $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1accounts~1{account-id}~1apps-local-state
+    $ref: 
+      rpc/operations/algorand/algorand.yml#/paths/~1v2~1accounts~1{account-id}~1apps-local-state
   /v2/accounts/{account-id}/assets:
     $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1accounts~1{account-id}~1assets
   /v2/accounts/{account-id}/created-applications:
-    $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1accounts~1{account-id}~1created-applications
+    $ref: 
+      rpc/operations/algorand/algorand.yml#/paths/~1v2~1accounts~1{account-id}~1created-applications
   /v2/accounts/{account-id}/created-assets:
-    $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1accounts~1{account-id}~1created-assets
+    $ref: 
+      rpc/operations/algorand/algorand.yml#/paths/~1v2~1accounts~1{account-id}~1created-assets
   /v2/accounts/{account-id}/transactions:
-    $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1accounts~1{account-id}~1transactions
+    $ref: 
+      rpc/operations/algorand/algorand.yml#/paths/~1v2~1accounts~1{account-id}~1transactions
   /v2/accounts/{address}:
     $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1accounts~1{address}
   /v2/accounts/{address}/applications/{application-id}:
-    $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1accounts~1{address}~1applications~1{application-id}
+    $ref: 
+      rpc/operations/algorand/algorand.yml#/paths/~1v2~1accounts~1{address}~1applications~1{application-id}
   /v2/accounts/{address}/assets/{asset-id}:
-    $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1accounts~1{address}~1assets~1{asset-id}
+    $ref: 
+      rpc/operations/algorand/algorand.yml#/paths/~1v2~1accounts~1{address}~1assets~1{asset-id}
   /v2/accounts/{address}/transactions/pending:
-    $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1accounts~1{address}~1transactions~1pending
+    $ref: 
+      rpc/operations/algorand/algorand.yml#/paths/~1v2~1accounts~1{address}~1transactions~1pending
   /v2/applications:
     $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1applications
   /v2/applications/{application-id}:
     $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1applications~1{application-id}
   /v2/applications/{application-id}/box:
-    $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1applications~1{application-id}~1box
+    $ref: 
+      rpc/operations/algorand/algorand.yml#/paths/~1v2~1applications~1{application-id}~1box
   /v2/applications/{application-id}/boxes:
-    $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1applications~1{application-id}~1boxes
+    $ref: 
+      rpc/operations/algorand/algorand.yml#/paths/~1v2~1applications~1{application-id}~1boxes
   /v2/applications/{application-id}/logs:
-    $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1applications~1{application-id}~1logs
+    $ref: 
+      rpc/operations/algorand/algorand.yml#/paths/~1v2~1applications~1{application-id}~1logs
   /v2/assets:
     $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1assets
   /v2/assets/{asset-id}:
@@ -53,7 +63,8 @@ paths:
   /v2/assets/{asset-id}/balances:
     $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1assets~1{asset-id}~1balances
   /v2/assets/{asset-id}/transactions:
-    $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1assets~1{asset-id}~1transactions
+    $ref: 
+      rpc/operations/algorand/algorand.yml#/paths/~1v2~1assets~1{asset-id}~1transactions
   /v2/blocks/{round-number}:
     $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1blocks~1{round-number}
   /v2/blocks/{round}:
@@ -61,9 +72,11 @@ paths:
   /v2/blocks/{round}/hash:
     $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1blocks~1{round}~1hash
   /v2/blocks/{round}/lightheader/proof:
-    $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1blocks~1{round}~1lightheader~1proof
+    $ref: 
+      rpc/operations/algorand/algorand.yml#/paths/~1v2~1blocks~1{round}~1lightheader~1proof
   /v2/blocks/{round}/transactions/{txid}/proof:
-    $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1blocks~1{round}~1transactions~1{txid}~1proof
+    $ref: 
+      rpc/operations/algorand/algorand.yml#/paths/~1v2~1blocks~1{round}~1transactions~1{txid}~1proof
   /v2/catchup/{catchpoint}:
     $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1catchup~1{catchpoint}
   /v2/deltas/txn/group/{id}:
@@ -75,7 +88,8 @@ paths:
   /v2/devmode/blocks/offset:
     $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1devmode~1blocks~1offset
   /v2/devmode/blocks/offset/{offset}:
-    $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1devmode~1blocks~1offset~1{offset}
+    $ref: 
+      rpc/operations/algorand/algorand.yml#/paths/~1v2~1devmode~1blocks~1offset~1{offset}
   /v2/experimental:
     $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1experimental
   /v2/ledger/supply:
@@ -87,7 +101,8 @@ paths:
   /v2/participation:
     $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1participation
   /v2/participation/{participation-id}:
-    $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1participation~1{participation-id}
+    $ref: 
+      rpc/operations/algorand/algorand.yml#/paths/~1v2~1participation~1{participation-id}
   /v2/shutdown:
     $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1shutdown
   /v2/stateproofs/{round}:
@@ -95,7 +110,8 @@ paths:
   /v2/status:
     $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1status
   /v2/status/wait-for-block-after/{round}:
-    $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1status~1wait-for-block-after~1{round}
+    $ref: 
+      rpc/operations/algorand/algorand.yml#/paths/~1v2~1status~1wait-for-block-after~1{round}
   /v2/teal/compile:
     $ref: rpc/operations/algorand/algorand.yml#/paths/~1v2~1teal~1compile
   /v2/teal/disassemble:
@@ -142,9 +158,11 @@ paths:
   /eth_getBlockReceipts/{apiKey}:
     $ref: rpc/operations/ethereum/ethereum.yml#/paths/~1eth_getBlockReceipts~1{apiKey}
   /eth_getBlockTransactionCountByHash/{apiKey}:
-    $ref: rpc/operations/ethereum/ethereum.yml#/paths/~1eth_getBlockTransactionCountByHash~1{apiKey}
+    $ref: 
+      rpc/operations/ethereum/ethereum.yml#/paths/~1eth_getBlockTransactionCountByHash~1{apiKey}
   /eth_getBlockTransactionCountByNumber/{apiKey}:
-    $ref: rpc/operations/ethereum/ethereum.yml#/paths/~1eth_getBlockTransactionCountByNumber~1{apiKey}
+    $ref: 
+      rpc/operations/ethereum/ethereum.yml#/paths/~1eth_getBlockTransactionCountByNumber~1{apiKey}
   /eth_getCode/{apiKey}:
     $ref: rpc/operations/ethereum/ethereum.yml#/paths/~1eth_getCode~1{apiKey}
   /eth_getFilterChanges/{apiKey}:
@@ -158,23 +176,30 @@ paths:
   /eth_getStorageAt/{apiKey}:
     $ref: rpc/operations/ethereum/ethereum.yml#/paths/~1eth_getStorageAt~1{apiKey}
   /eth_getTransactionByBlockHashAndIndex/{apiKey}:
-    $ref: rpc/operations/ethereum/ethereum.yml#/paths/~1eth_getTransactionByBlockHashAndIndex~1{apiKey}
+    $ref: 
+      rpc/operations/ethereum/ethereum.yml#/paths/~1eth_getTransactionByBlockHashAndIndex~1{apiKey}
   /eth_getTransactionByBlockNumberAndIndex/{apiKey}:
-    $ref: rpc/operations/ethereum/ethereum.yml#/paths/~1eth_getTransactionByBlockNumberAndIndex~1{apiKey}
+    $ref: 
+      rpc/operations/ethereum/ethereum.yml#/paths/~1eth_getTransactionByBlockNumberAndIndex~1{apiKey}
   /eth_getTransactionByHash/{apiKey}:
     $ref: rpc/operations/ethereum/ethereum.yml#/paths/~1eth_getTransactionByHash~1{apiKey}
   /eth_getTransactionCount/{apiKey}:
     $ref: rpc/operations/ethereum/ethereum.yml#/paths/~1eth_getTransactionCount~1{apiKey}
   /eth_getTransactionReceipt/{apiKey}:
-    $ref: rpc/operations/ethereum/ethereum.yml#/paths/~1eth_getTransactionReceipt~1{apiKey}
+    $ref: 
+      rpc/operations/ethereum/ethereum.yml#/paths/~1eth_getTransactionReceipt~1{apiKey}
   /eth_getUncleByBlockHashAndIndex/{apiKey}:
-    $ref: rpc/operations/ethereum/ethereum.yml#/paths/~1eth_getUncleByBlockHashAndIndex~1{apiKey}
+    $ref: 
+      rpc/operations/ethereum/ethereum.yml#/paths/~1eth_getUncleByBlockHashAndIndex~1{apiKey}
   /eth_getUncleByBlockNumberAndIndex/{apiKey}:
-    $ref: rpc/operations/ethereum/ethereum.yml#/paths/~1eth_getUncleByBlockNumberAndIndex~1{apiKey}
+    $ref: 
+      rpc/operations/ethereum/ethereum.yml#/paths/~1eth_getUncleByBlockNumberAndIndex~1{apiKey}
   /eth_getUncleCountByBlockHash/{apiKey}:
-    $ref: rpc/operations/ethereum/ethereum.yml#/paths/~1eth_getUncleCountByBlockHash~1{apiKey}
+    $ref: 
+      rpc/operations/ethereum/ethereum.yml#/paths/~1eth_getUncleCountByBlockHash~1{apiKey}
   /eth_getUncleCountByBlockNumber/{apiKey}:
-    $ref: rpc/operations/ethereum/ethereum.yml#/paths/~1eth_getUncleCountByBlockNumber~1{apiKey}
+    $ref: 
+      rpc/operations/ethereum/ethereum.yml#/paths/~1eth_getUncleCountByBlockNumber~1{apiKey}
   /eth_maxPriorityFeePerGas/{apiKey}:
     $ref: rpc/operations/ethereum/ethereum.yml#/paths/~1eth_maxPriorityFeePerGas~1{apiKey}
   /eth_newBlockFilter/{apiKey}:
@@ -182,11 +207,13 @@ paths:
   /eth_newFilter/{apiKey}:
     $ref: rpc/operations/ethereum/ethereum.yml#/paths/~1eth_newFilter~1{apiKey}
   /eth_newPendingTransactionFilter/{apiKey}:
-    $ref: rpc/operations/ethereum/ethereum.yml#/paths/~1eth_newPendingTransactionFilter~1{apiKey}
+    $ref: 
+      rpc/operations/ethereum/ethereum.yml#/paths/~1eth_newPendingTransactionFilter~1{apiKey}
   /eth_protocolVersion/{apiKey}:
     $ref: rpc/operations/ethereum/ethereum.yml#/paths/~1eth_protocolVersion~1{apiKey}
   /eth_sendPrivateTransaction/{apiKey}:
-    $ref: rpc/operations/ethereum/ethereum.yml#/paths/~1eth_sendPrivateTransaction~1{apiKey}
+    $ref: 
+      rpc/operations/ethereum/ethereum.yml#/paths/~1eth_sendPrivateTransaction~1{apiKey}
   /eth_sendRawTransaction/{apiKey}:
     $ref: rpc/operations/ethereum/ethereum.yml#/paths/~1eth_sendRawTransaction~1{apiKey}
   /eth_uninstallFilter/{apiKey}:
