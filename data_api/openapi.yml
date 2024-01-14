@@ -4,7 +4,7 @@ components:
       type: apiKey
       in: header
       name: x-api-key
-      default: t-645a26e22d0761001c811c84-645a26e32d0761001c811c8a
+      description: Default API key is t-645a26e22d0761001c811c84-645a26e32d0761001c811c8a
 security:
   - ApiKeyAuth: []
 
