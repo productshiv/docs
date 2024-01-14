@@ -4,6 +4,7 @@ components:
       type: apiKey
       in: header
       name: x-api-key
+      default: t-645a26e22d0761001c811c84-645a26e32d0761001c811c8a
 security:
   - ApiKeyAuth: []
 
@@ -24,7 +25,18 @@ paths:
           required: true
           schema:
             type: string
-          description: The blockchain to query (e.g., ethereum)
+            enum:
+              - ethereum
+              - ethereum-sepolia
+              - celo
+              - celo-testnet
+              - bsc
+              - bsc-testnet
+              - polygon
+              - polygon-mumbai
+              - eon
+              - chiliz
+          description: The blockchain to query
         - name: collectionAddresses
           in: query
           required: true
@@ -32,7 +44,7 @@ paths:
             type: string
           description: Address of the collection
       tags:
-       - Data API
+        - Data API
       responses:
         '200':
           description: Successful response
