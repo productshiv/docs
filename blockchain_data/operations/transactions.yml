@@ -58,7 +58,7 @@ paths:
 
   /v3/blockchain/fee/{chain}:
     get:
-      summary: Retrieve blockchain fee for a specified chain
+      summary: getBlockchainFee
       operationId: getBlockchainFee
       parameters:
         - name: chain
@@ -68,7 +68,7 @@ paths:
             type: string
           description: Blockchain to query (e.g., ethereum, bitcoin)
       tags:
-        - Blockchain API
+        - Transactions API
       responses:
         '200':
           description: Successful response
@@ -89,7 +89,7 @@ paths:
   
   /v3/blockchain/estimate:
     post:
-      summary: Estimate a blockchain operation
+      summary: estimateBlockchainOperation
       operationId: estimateBlockchainOperation
       requestBody:
         required: true
@@ -105,7 +105,7 @@ paths:
                   type: string
                   example: DEPLOY_ERC20
       tags:
-        - Blockchain API
+        - Transactions API
       responses:
         '200':
           description: Successful estimation
@@ -124,7 +124,7 @@ paths:
         '500':
           description: Internal server error
 
-  
+
 
 servers:
   - url: https://api.tatum.io/
