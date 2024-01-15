@@ -1,0 +1,94 @@
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: t-645a26e22d0761001c811c84-645a26e32d0761001c811c8a
+security:
+  - ApiKeyAuth: []
+
+info:
+  title: Data API
+  version: "1.0.0"
+openapi: 3.0.3
+paths:
+  /v3/data/events:
+    get:
+      tags:
+        - Defi API
+      summary: Retrieve events for specific contract addresses and blocks
+      operationId: getEvents
+      parameters:
+        - name: chain
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Blockchain to query (e.g., ethereum)
+        - name: contractAddresses
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Comma-separated contract addresses
+        - name: blockFrom
+          in: query
+          schema:
+            type: string
+          description: Starting block number
+        - name: blockTo
+          in: query
+          schema:
+            type: string
+          description: Ending block number
+        - name: eventType
+          in: query
+          schema:
+            type: string
+          description: Type of event to retrieve
+      responses:
+        '200':
+          description: Successful response
+          # Define response schema
+
+  # Why we have this? What value it adds?
+  /v3/data/blocks:
+    get:
+      tags:
+        - Others
+      summary: Retrieve blocks for a specific blockchain
+      operationId: getBlocks
+      parameters:
+        - name: chain
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Blockchain to query (e.g., ethereum)
+      responses:
+        '200':
+          description: Successful response
+          # Define response schema
+
+  # Why we have this? What value it adds?
+  /v3/data/blocks/latest:
+    get:
+      tags:
+        - Others
+      summary: Retrieve the latest block for a specific blockchain
+      operationId: getLatestBlock
+      parameters:
+        - name: chain
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Blockchain to query (e.g., ethereum)
+      responses:
+        '200':
+          description: Successful response
+          # Define response schema
+
+servers:
+  - url: https://api.tatum.io/
