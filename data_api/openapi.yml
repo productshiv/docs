@@ -12,8 +12,8 @@ paths:
     $ref: "data_api/operations/token.yml#/paths/~1v3~1data~1owners"
 
   # Token API
-  /v3/data/owners:
-    $ref: "data_api/operations/token.yml#/paths/~1v3~1data~1owners"
+  # /v3/data/owners:
+  #   $ref: "data_api/operations/token.yml#/paths/~1v3~1data~1owners"
   /v3/data/tokens:
     $ref: "data_api/operations/token.yml#/paths/~1v3~1data~1tokens"
 
