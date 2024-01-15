@@ -129,5 +129,59 @@ paths:
           description: Successful response
           # Define response schema
 
+  /v3/data/owners/address:
+  get:
+    tags:
+      - NFT API
+    summary: Retrieve ownership information for a specific address
+    operationId: getOwnershipByAddress
+    parameters:
+      - name: chain
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+            - ethereum
+            - ethereum-sepolia
+            - celo
+            - celo-testnet
+            - bsc
+            - bsc-testnet
+            - polygon
+            - polygon-mumbai
+            - eon
+            - chiliz
+        description: Blockchain to query
+      - name: address
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Address to query
+      - name: tokenAddress
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Token address
+    responses:
+      '200':
+        description: Successful response
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                # Define the properties of your response here
+                exampleProperty:
+                  type: string
+      '400':
+        description: Bad request
+      '401':
+        description: Unauthorized
+      '500':
+        description: Internal server error
+
 servers:
   - url: https://api.tatum.io/
