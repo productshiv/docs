@@ -10,6 +10,8 @@ paths:
     $ref: "data_api/operations/nft.yml#/paths/~1v3~1data~1metadata"
   /v3/data/owners:
     $ref: "data_api/operations/nft.yml#/paths/~1v3~1data~1owners"
+  /v3/data/owners/address:
+    $ref: "data_api/operations/nft.yml#/paths/~1v3~1data~1owners~1address"
 
   # Token API
   # /v3/data/owners:
