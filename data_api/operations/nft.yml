@@ -108,7 +108,7 @@ paths:
     get:
       tags:
         - NFT API
-        = Tokens API
+        - Tokens API
       summary: getAllOwnersofToken
       operationId: getOwners
       parameters:
