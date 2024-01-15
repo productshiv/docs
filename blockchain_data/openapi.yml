@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Data API
+  title: Blockchain Data
   version: "1.0.0"
 paths:
   # NFT API
@@ -33,6 +33,10 @@ paths:
     $ref: "data_api/operations/transactions.yml#/paths/~1v3~1data~1transactions"
   /v3/data/transactions/hash:
     $ref: "data_api/operations/transactions.yml#/paths/~1v3~1data~1transactions~1hash"
+  /v3/blockchain/fee/{chain}:
+    $ref: "data_api/operations/transactions.yml#/paths/~1v3~1blockchain~1fee~1{chain}"
+  /v3/blockchain/estimate:
+    $ref: "data_api/operations/transactions.yml#/paths/~1v3~1blockchain~1estimate"
 
   # DeFi API
   /v3/data/events:
