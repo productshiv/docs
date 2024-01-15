@@ -22,7 +22,7 @@ jobs:
           README_API_KEY: ${{ secrets.README_API_KEY }}
         uses: readmeio/rdme@v8
         with:
-          rdme: openapi data_api/openapi.yml --key=${{ secrets.README_API_KEY }} --id=65a2484492ed39004fabe7d0
+          rdme: openapi blockchain_data/openapi.yml --key=${{ secrets.README_API_KEY }} --id=65a2484492ed39004fabe7d0
 
       - name: Notifications
         env:
