@@ -89,8 +89,8 @@ paths:
   
   /v3/blockchain/estimate:
     post:
-      summary: estimateBlockchainOperation
-      operationId: estimateBlockchainOperation
+      summary: estimateBlockchainOperationGas
+      operationId: estimateBlockchainOperationGas
       requestBody:
         required: true
         content:
