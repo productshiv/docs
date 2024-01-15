@@ -58,7 +58,7 @@ paths:
     get:
       tags:
         - Wallet API
-      summary: Retrieve unspent transaction outputs (UTXOs) for a specific address
+      summary: getUTXOs
       operationId: getUTXOs
       parameters:
         - name: chain

@@ -36,7 +36,7 @@ paths:
     get:
       tags:
         - Transactions API
-      summary: Retrieve transaction details by hash
+      summary: getTransactionByHash
       operationId: getTransactionByHash
       parameters:
         - name: chain

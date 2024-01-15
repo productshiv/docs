@@ -17,7 +17,7 @@ paths:
     get:
       tags:
         - Defi API
-      summary: Retrieve events for specific contract addresses and blocks
+      summary: getEvents
       operationId: getEvents
       parameters:
         - name: chain

@@ -42,7 +42,7 @@ paths:
     get:
       tags:
         - Token API
-      summary: Retrieve token information for a specific address
+      summary: getTokenInformation
       operationId: getTokenInformation
       parameters:
         - name: chain
