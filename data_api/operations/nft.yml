@@ -133,7 +133,7 @@ paths:
     get:
       tags:
         - NFT API
-      summary: Retrieve ownership information for a specific address
+      summary: getOwnershipByAddress
       operationId: getOwnershipByAddress
       parameters:
         - name: chain
