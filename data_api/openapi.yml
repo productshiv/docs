@@ -20,8 +20,8 @@ paths:
   # Wallet API
   /v3/data/balances:
     $ref: "data_api/operations/token.yml#/paths/~1v3~1data~1balances"
-  /v3/data/transactions:
-    $ref: "data_api/operations/token.yml#/paths/~1v3~1data~1transactions"
+  # /v3/data/transactions:
+  #   $ref: "data_api/operations/token.yml#/paths/~1v3~1data~1transactions"
   /v3/data/utxos:
     $ref: "data_api/operations/token.yml#/paths/~1v3~1data~1utxos"
   
@@ -29,8 +29,8 @@ paths:
   # Transactions API
   /v3/data/transactions:
     $ref: "data_api/operations/transactions.yml#/paths/~1v3~1data~1transactions"
-  # /v3/data/transactions/hash:
-  #   $ref: "data_api/operations/transactions.yml#/paths/~1v3~1data~1transactions~1hash"
+  /v3/data/transactions/hash:
+    $ref: "data_api/operations/transactions.yml#/paths/~1v3~1data~1transactions~1hash"
 
   # DeFi API
   /v3/data/events:
