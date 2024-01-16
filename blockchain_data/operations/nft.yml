@@ -183,5 +183,6 @@ paths:
         '500':
           description: Internal server error
 
+  
 servers:
   - url: https://api.tatum.io/

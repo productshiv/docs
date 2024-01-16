@@ -31,6 +31,13 @@ jobs:
         with:
           rdme: openapi notifications/openapi.yml --key=${{ secrets.README_API_KEY }} --id=65a248929e71b8002a495505
 
+      - name: Blockhain Utility
+        env:
+          README_API_KEY: ${{ secrets.README_API_KEY }}
+        uses: readmeio/rdme@v8
+        with:
+          rdme: openapi blockchain_utility/openapi.yml --key=${{ secrets.README_API_KEY }} --id=65a67d65d76622006bae40ab
+
       - name: RPC
         env:
           README_API_KEY: ${{ secrets.README_API_KEY }}

@@ -1,0 +1,8 @@
+openapi: 3.1.0
+info:
+  title: Blockchain Utility
+  version: "1.0.0"
+paths:
+  # Incoming
+  /subscription/create:
+    $ref: "notifications/operations/incoming.yml#/paths/create"
