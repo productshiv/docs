@@ -15,7 +15,7 @@ paths:
     /v3/data/collections:
       get:
         tags:
-          - "Virtual Accounts"
+          - Virtual Accounts
         summary: getCollectionsData
         operationId: getCollectionsData
         parameters:
