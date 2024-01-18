@@ -13,7 +13,7 @@ info:
   version: "1.0.0"
 openapi: 3.0.3
 paths:
- /v3/data/events:
+  /v3/data/events:
     get:
       tags:
         - Defi API
