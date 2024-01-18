@@ -59,5 +59,6 @@ paths:
             description: Unauthorized
           '500':
             description: Internal server error
+
 servers:
   - url: https://api.tatum.io/
