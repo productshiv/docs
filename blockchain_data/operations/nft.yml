@@ -15,52 +15,113 @@ openapi: 3.0.3
 paths:
   /v3/data/collections:
     get:
-      tags:
-        - NFT API
-      summary: getCollectionsData
-      operationId: getCollectionsData
+      description: |
+        <p><b>10 credits per API call</b></p>
+        <p>Get all NFTs (ERC-721 and ERC-1155) and multitokens (ERC-1155 only) of your favorite collections! Our API lets you search for all tokens on:</p>
+        <ul>
+        <li>Celo - celo / celo-testnet</li>
+        <li>Ethereum - ethereum / ethereum-sepolia</li>
+        <li>BNB (Binance) Smart Chain - bsc / bsc-testnet</li>
+        <li>Polygon - polygon / polygon-mumbai</li>
+        <li>Horizen EON - eon-mainnet</li>
+        <li>Chiliz - chiliz-mainnet</li>
+        <li>Tezos - tezos-mainnet</li>
+        </ul>
+        <p>To get started:</p>
+        <ul>
+        <li>Provide a chain name and comma-separated list of collection addresses. Our API will return relevant information about each token, including its name, description, image, and more.</li>
+        <li>Aside from relevant information about each token, the response also contains metadata (they can, however, be excluded by setting <code>excludeMetadata</code> to <code>true</code>).</li>
+        <li>If not specified, the API returns results for all supported types of tokens (nft, multitokens), but you can also choose to filter only one <code>tokenType</code>.</li>
+        <li>For Tezos blockchain query parameters <code>excludeMetadata</code> and <code>tokenType</code> won't have any effect on filtering data.</li>
+        </ul>
+      operationId: GetCollections
       parameters:
-        - name: chain
+        - description: The blockchain to work with.
           in: query
+          name: chain
           required: true
           schema:
+            $ref: '../../components/schemas/ChainEnum'
+        - description: |
+            The blockchain addresses of the collections.
+            It is possible to enter list of up to 10 addresses as a comma separated string.
+          in: query
+          name: collectionAddresses
+          required: true
+          schema:
+            $ref: '../../components/schemas/TokenAddress'
+        - description: |
+            The option to select only specific token types.
+            It is possible to enter list of multiple types as a comma separated string.
+            Use nft (includes ERC-721 and ERC-1155) or multitoken (ERC-1155 only).
+          in: query
+          name: tokenTypes
+          schema:
             type: string
+            example: 'nft'
             enum:
-              - ethereum
-              - ethereum-sepolia
-              - celo
-              - celo-testnet
-              - bsc
-              - bsc-testnet
-              - polygon
-              - polygon-mumbai
-              - eon
-              - chiliz
-          description: The blockchain to query
-        - name: collectionAddresses
+              - nft
+              - multitoken
+        - description: The option to exclude metadata from the response.
           in: query
-          required: true
+          name: excludeMetadata
           schema:
-            type: string
-          description: Address of the collection
+            $ref: '../../components/schemas/ExcludeMetadata'
+        - description: The number of items per page (default is 50).
+          in: query
+          name: pageSize
+          schema:
+            $ref: '../../components/schemas/PageSize'
+        - description: The offset to obtain next page of the data.
+          in: query
+          name: offset
+          schema:
+            $ref: '../../components/schemas/Offset'
       responses:
-        '200':
-          description: Successful response
+        200:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  # Define the properties of your response here
-                  exampleProperty:
-                    type: string
-        '400':
-          description: Bad request
-        '401':
-          description: Unauthorized
-        '500':
-          description: Internal server error
-  
+                type: array
+                items:
+                  oneOf:
+                    - $ref: '../../components/schemas/Token'
+                    - $ref: '../../components/schemas/TokenTezos'
+                 
+          description: OK
+        400: &API400
+          content:
+            application/json:
+              schema:
+                $ref: '../../components/schemas/Error400'
+          description: Bad Request. Validation failed for the given object in the HTTP Body or Request parameters.
+        401: &API401
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '../../components/schemas/Error401NotActive'
+                  - $ref: '../../components/schemas/Error401Invalid'
+          description: Unauthorized. Not valid or inactive subscription key present in the HTTP Header.
+        403: &API403
+          description: Forbidden. The request is authenticated, but it is not possible to required perform operation due to logical error or invalid permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '../../components/schemas/Error403'
+        500: &API500
+          content:
+            application/json:
+              schema:
+                $ref: '../../components/schemas/Error500'
+          description: Internal server error. There was an error on the server during the processing of the request.
+      security:
+        - X-API-Key: []
+      x-codeSamples: []
+      summary: Get tokens from a collection
+      tags:
+        - NFT API
+
   /v3/data/metadata:
     get:
       tags:
