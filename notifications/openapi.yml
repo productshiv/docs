@@ -6,3 +6,6 @@ paths:
   # Incoming
   /subscription/create:
     $ref: "notifications/operations/incoming.yml#/paths/create"
+
+servers:
+  - url: https://api.tatum.io/

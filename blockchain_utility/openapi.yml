@@ -6,3 +6,6 @@ paths:
   # VA
   /v3/data/collections:
     $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1data~1collections"
+
+servers:
+  - url: https://api.tatum.io/

@@ -41,3 +41,7 @@ paths:
   # DeFi API
   /v3/data/events:
     $ref: "blockchain_data/operations/defi.yml#/paths/~1v3~1data~1events"
+
+
+servers:
+  - url: https://api.tatum.io/
