@@ -7,7 +7,6 @@ components:
       description: t-645a26e22d0761001c811c84-645a26e32d0761001c811c8a
 security:
   - ApiKeyAuth: []
-
 info:
   title: Data API
   version: "1.0.0"
@@ -16,7 +15,7 @@ paths:
     /v3/data/collections:
       get:
         tags:
-          - "Virtual Accounts/Accounts"
+          - "Virtual Accounts"
         summary: getCollectionsData
         operationId: getCollectionsData
         parameters:
