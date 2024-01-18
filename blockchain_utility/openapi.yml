@@ -3,6 +3,6 @@ info:
   title: Blockchain Utility
   version: "1.0.0"
 paths:
-  # Incoming
-  /subscription/create:
-    $ref: "notifications/operations/incoming.yml#/paths/create"
+  # VA
+  /v3/data/collections:
+    $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1data~1collections"
