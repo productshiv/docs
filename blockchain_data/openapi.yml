@@ -41,6 +41,10 @@ paths:
   # DeFi API
   /v3/data/events:
     $ref: "blockchain_data/operations/defi.yml#/paths/~1v3~1data~1events"
+  /v3/data/blocks:
+    $ref: "blockchain_data/operations/defi.yml#/paths/~1v3~1data~1blocks"
+  /v3/data/blocks/latest:
+    $ref: "blockchain_data/operations/defi.yml#/paths/~1v3~1data~1blocks~1latest"
 
 
 servers:

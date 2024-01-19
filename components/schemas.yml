@@ -49316,7 +49316,7 @@ components:
     TokenAddress:
       type: string
       description: Contract address of the token.
-      example: '0xba30E5F9Bb24caa003E9f2f0497Ad287FDF95623'
+      example: '0x524cab2ec69124574082676e6f654a18df49a048'
     ExcludeMetadata:
       type: boolean
       example: false
