@@ -15,25 +15,7 @@ openapi: 3.0.3
 paths:
   /v3/data/collections:
     get:
-      description: |
-        <p><b>10 credits per API call</b></p>
-        <p>Get all NFTs (ERC-721 and ERC-1155) and multitokens (ERC-1155 only) of your favorite collections! Our API lets you search for all tokens on:</p>
-        <ul>
-        <li>Celo - celo / celo-testnet</li>
-        <li>Ethereum - ethereum / ethereum-sepolia</li>
-        <li>BNB (Binance) Smart Chain - bsc / bsc-testnet</li>
-        <li>Polygon - polygon / polygon-mumbai</li>
-        <li>Horizen EON - eon-mainnet</li>
-        <li>Chiliz - chiliz-mainnet</li>
-        <li>Tezos - tezos-mainnet</li>
-        </ul>
-        <p>To get started:</p>
-        <ul>
-        <li>Provide a chain name and comma-separated list of collection addresses. Our API will return relevant information about each token, including its name, description, image, and more.</li>
-        <li>Aside from relevant information about each token, the response also contains metadata (they can, however, be excluded by setting <code>excludeMetadata</code> to <code>true</code>).</li>
-        <li>If not specified, the API returns results for all supported types of tokens (nft, multitokens), but you can also choose to filter only one <code>tokenType</code>.</li>
-        <li>For Tezos blockchain query parameters <code>excludeMetadata</code> and <code>tokenType</code> won't have any effect on filtering data.</li>
-        </ul>
+      description: Test
       operationId: GetCollections
       parameters:
         - description: The blockchain to work with.
@@ -124,6 +106,96 @@ paths:
 
   /v3/data/metadata:
     get:
+      description: Test
+      operationId: GetMetadata
+      parameters:
+        - description: The blockchain to work with.
+          in: query
+          name: chain
+          required: true
+          schema:
+            $ref: '../../components/schemas/ChainEnum'
+        - description: The blockchain address of the NFT to get metadata for.
+          in: query
+          name: tokenAddress
+          required: true
+          schema:
+            $ref: '../../components/schemas/TokenAddress'
+        - description: >
+            The IDs of the tokens to get metadata for.
+
+            It is possible to enter list of multiple IDs as a comma separated
+            string.
+          in: query
+          name: tokenIds
+          required: true
+          schema:
+            $ref: '../../components/schemas/TokenIds'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    chain:
+                      $ref: '../../components/schemas/Chain'
+                    tokenId:
+                      $ref: '../../components/schemas/TokenId'
+                    tokenAddress:
+                      $ref: '../../components/schemas/TokenAddress'
+                    tokenType:
+                      $ref: '../../components/schemas/TokenType'
+                    metadataURI:
+                      $ref: '../../components/schemas/NftMetadataURI'
+                    metadata:
+                      $ref: '../../components/schemas/NftMetadata'
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '../../components/schemas/Error400'
+          description: >-
+            Bad Request. Validation failed for the given object in the HTTP Body
+            or Request parameters.
+        '401':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '../../components/schemas/Error401NotActive'
+                  - $ref: '../../components/schemas/Error401Invalid'
+          description: >-
+            Unauthorized. Not valid or inactive subscription key present in the
+            HTTP Header.
+        '403':
+          description: >-
+            Forbidden. The request is authenticated, but it is not possible to
+            required perform operation due to logical error or invalid
+            permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '../../components/schemas/Error403'
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '../../components/schemas/Error500'
+          description: >-
+            Internal server error. There was an error on the server during the
+            processing of the request.
+      security:
+        - X-API-Key: []
+      x-codeSamples: []
+      summary: Get token metadata
+      tags:
+        - Data API
+ 
+    get:
       tags:
         - NFT API
       summary: getTokenMetadata
@@ -167,83 +239,212 @@ paths:
   
   /v3/data/owners:
     get:
-      tags:
-        - NFT API
-        - Token API
-      summary: getAllOwnersofToken
-      operationId: getOwners
+      description: test
+      operationId: GetOwners
       parameters:
-        - name: chain
+        - description: The blockchain to work with.
           in: query
+          name: chain
           required: true
           schema:
-            type: string
-          description: Blockchain to query (e.g., ethereum)
-        - name: tokenAddress
+            $ref: '../../components/schemas/ChainEnum'
+        - description: >-
+            The blockchain address of the token (NFT collection or any fungible
+            token).
           in: query
+          name: tokenAddress
           required: true
           schema:
-            type: string
-          description: Token address
+            $ref: '../../components/schemas/TokenAddress'
+        - description: The ID of a specific NFT token.
+          in: query
+          name: tokenId
+          schema:
+            $ref: '../../components/schemas/TokenId'
+        - description: The number of items per page (default is 50).
+          in: query
+          name: pageSize
+          schema:
+            $ref: '../../components/schemas/PageSize'
+        - description: The offset to obtain next page of the data.
+          in: query
+          name: offset
+          schema:
+            $ref: '../../components/schemas/Offset'
       responses:
         '200':
-          description: Successful response
-          # Define response schema
-
-  /v3/data/owners/address:
-    get:
-      tags:
-        - NFT API
-      summary: getOwnershipByAddress
-      operationId: getOwnershipByAddress
-      parameters:
-        - name: chain
-          in: query
-          required: true
-          schema:
-            type: string
-            enum:
-              - ethereum
-              - ethereum-sepolia
-              - celo
-              - celo-testnet
-              - bsc
-              - bsc-testnet
-              - polygon
-              - polygon-mumbai
-              - eon
-              - chiliz
-          description: Blockchain to query
-        - name: address
-          in: query
-          required: true
-          schema:
-            type: string
-          description: Address to query
-        - name: tokenAddress
-          in: query
-          required: true
-          schema:
-            type: string
-          description: Token address
-      responses:
-        '200':
-          description: Successful response
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  # Define the properties of your response here
-                  exampleProperty:
-                    type: string
+                type: array
+                description: >-
+                  List of all addresses that own a token in a specified
+                  collection.
+                example:
+                  - '0x0bbf9f25c863fdf19e645c96280004d24f43cb38'
+                  - '0x0bd1b3b12db943f2310a4e53481ae97f8b6c2a75'
+                  - '0x281f4727081ab4a066f321fd6fc8dd0dc063e9fd'
+                  - '0x681cbae1c41e5eec8411dd8e009fa71f81d03f7f'
+                  - '0x7b49a05c15702bbe1db534058ebcc9e950c474ca'
+          description: OK
         '400':
-          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '../../components/schemas/Error400'
+          description: >-
+            Bad Request. Validation failed for the given object in the HTTP Body
+            or Request parameters.
         '401':
-          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '../../components/schemas/Error401NotActive'
+                  - $ref: '../../components/schemas/Error401Invalid'
+          description: >-
+            Unauthorized. Not valid or inactive subscription key present in the
+            HTTP Header.
+        '403':
+          description: >-
+            Forbidden. The request is authenticated, but it is not possible to
+            required perform operation due to logical error or invalid
+            permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '../../components/schemas/Error403'
         '500':
-          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '../../components/schemas/Error500'
+          description: >-
+            Internal server error. There was an error on the server during the
+            processing of the request.
+      security:
+        - X-API-Key: []
+      x-codeSamples: []
+      summary: Get owners of a token
+      tags:
+        - Data API
+  
+  /v3/data/owners/address:
+    get:
+      description: >
+        <p><b>1 credit per API call</b></p>
 
+        <p>Check if wallet address owns any specified token (ERC-20, ERC-721 or
+        ERC-1155) on the following blockchains:</p>
+
+        <ul>
+
+        <li>Celo - celo / celo-testnet</li>
+
+        <li>Ethereum - ethereum / ethereum-sepolia</li>
+
+        <li>BNB (Binance) Smart Chain - bsc / bsc-testnet</li>
+
+        <li>Polygon - polygon / polygon-mumbai</li>
+
+        <li>Horizen EON - eon-mainnet</li>
+
+        <li>Chiliz - chiliz-mainnet</li>
+
+        </ul>
+
+        <p>To get started:</p>
+
+        <ul>
+
+        <li>Provide a chain name, wallet address and address of any fungible
+        token, NFT or multitoken collection. Our API will return
+        <code>true</code> if provided wallet address owns them.</li>
+
+        <li>If wallet address does not own the specific token, response body is
+        <code>false</code> and status code is <code>200</code>.</li>
+
+        <li>It is also possible to check if wallet address owns a specific NFT
+        by specifying a <code>tokenId</code>.</li>
+
+        </ul>
+      operationId: CheckOwner
+      parameters:
+        - description: The blockchain to work with.
+          in: query
+          name: chain
+          required: true
+          schema:
+            $ref: '../../components/schemas/ChainEnum'
+        - description: The blockchain address of the wallet.
+          in: query
+          name: address
+          required: true
+          schema:
+            type: string
+            example: '0x2474a7227877f2b65185f09468af7c6577fa207c'
+        - description: >-
+            The blockchain address of the token (NFT collection or any fungible
+            token).
+          in: query
+          name: tokenAddress
+          required: true
+          schema:
+            $ref: '../../components/schemas/TokenAddress'
+        - description: The ID of a specific NFT token.
+          in: query
+          name: tokenId
+          schema:
+            $ref: '../../components/schemas/TokenId'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: boolean
+                example: true
+          description: OK
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '../../components/schemas/Error400'
+          description: >-
+            Bad Request. Validation failed for the given object in the HTTP Body
+            or Request parameters.
+        '401':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '../../components/schemas/Error401NotActive'
+                  - $ref: '../../components/schemas/Error401Invalid'
+          description: >-
+            Unauthorized. Not valid or inactive subscription key present in the
+            HTTP Header.
+        '403':
+          description: >-
+            Forbidden. The request is authenticated, but it is not possible to
+            required perform operation due to logical error or invalid
+            permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '../../components/schemas/Error403'
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '../../components/schemas/Error500'
+          description: >-
+            Internal server error. There was an error on the server during the
+            processing of the request.
+      security:
+        - X-API-Key: []
+      x-codeSamples: []
+      summary: Check owner of token
+      tags:
+        - Data API
   
 servers:
   - url: https://api.tatum.io/
