@@ -23,7 +23,7 @@ paths:
           name: chain
           required: true
           schema:
-            $ref: '../../components/schemas/ChainEnum'
+            $ref: '../../components/schemas.yml/schemas/ChainEnum'
         - description: |
             The blockchain addresses of the collections.
             It is possible to enter list of up to 10 addresses as a comma separated string.
@@ -31,7 +31,7 @@ paths:
           name: collectionAddresses
           required: true
           schema:
-            $ref: '../../components/schemas/TokenAddress'
+            $ref: '../../components/schemas.yml/schemas/TokenAddress'
         - description: |
             The option to select only specific token types.
             It is possible to enter list of multiple types as a comma separated string.
@@ -48,17 +48,17 @@ paths:
           in: query
           name: excludeMetadata
           schema:
-            $ref: '../../components/schemas/ExcludeMetadata'
+            $ref: '../../components/schemas.yml/schemas/ExcludeMetadata'
         - description: The number of items per page (default is 50).
           in: query
           name: pageSize
           schema:
-            $ref: '../../components/schemas/PageSize'
+            $ref: '../../components/schemas.yml/schemas/PageSize'
         - description: The offset to obtain next page of the data.
           in: query
           name: offset
           schema:
-            $ref: '../../components/schemas/Offset'
+            $ref: '../../components/schemas.yml/schemas/Offset'
       responses:
         200:
           content:
@@ -67,35 +67,35 @@ paths:
                 type: array
                 items:
                   oneOf:
-                    - $ref: '../../components/schemas/Token'
-                    - $ref: '../../components/schemas/TokenTezos'
+                    - $ref: '../../components/schemas.yml/schemas/Token'
+                    - $ref: '../../components/schemas.yml/schemas/TokenTezos'
                  
           description: OK
         400: &API400
           content:
             application/json:
               schema:
-                $ref: '../../components/schemas/Error400'
+                $ref: '../../components/schemas.yml/schemas/Error400'
           description: Bad Request. Validation failed for the given object in the HTTP Body or Request parameters.
         401: &API401
           content:
             application/json:
               schema:
                 oneOf:
-                  - $ref: '../../components/schemas/Error401NotActive'
-                  - $ref: '../../components/schemas/Error401Invalid'
+                  - $ref: '../../components/schemas.yml/schemas/Error401NotActive'
+                  - $ref: '../../components/schemas.yml/schemas/Error401Invalid'
           description: Unauthorized. Not valid or inactive subscription key present in the HTTP Header.
         403: &API403
           description: Forbidden. The request is authenticated, but it is not possible to required perform operation due to logical error or invalid permissions.
           content:
             application/json:
               schema:
-                $ref: '../../components/schemas/Error403'
+                $ref: '../../components/schemas.yml/schemas/Error403'
         500: &API500
           content:
             application/json:
               schema:
-                $ref: '../../components/schemas/Error500'
+                $ref: '../../components/schemas.yml/schemas/Error500'
           description: Internal server error. There was an error on the server during the processing of the request.
       security:
         - X-API-Key: []
@@ -114,13 +114,13 @@ paths:
           name: chain
           required: true
           schema:
-            $ref: '../../components/schemas/ChainEnum'
+            $ref: '../../components/schemas.yml/schemas/ChainEnum'
         - description: The blockchain address of the NFT to get metadata for.
           in: query
           name: tokenAddress
           required: true
           schema:
-            $ref: '../../components/schemas/TokenAddress'
+            $ref: '../../components/schemas.yml/schemas/TokenAddress'
         - description: >
             The IDs of the tokens to get metadata for.
 
@@ -130,7 +130,7 @@ paths:
           name: tokenIds
           required: true
           schema:
-            $ref: '../../components/schemas/TokenIds'
+            $ref: '../../components/schemas.yml/schemas/TokenIds'
       responses:
         '200':
           content:
@@ -141,23 +141,23 @@ paths:
                   type: object
                   properties:
                     chain:
-                      $ref: '../../components/schemas/Chain'
+                      $ref: '../../components/schemas.yml/schemas/Chain'
                     tokenId:
-                      $ref: '../../components/schemas/TokenId'
+                      $ref: '../../components/schemas.yml/schemas/TokenId'
                     tokenAddress:
-                      $ref: '../../components/schemas/TokenAddress'
+                      $ref: '../../components/schemas.yml/schemas/TokenAddress'
                     tokenType:
-                      $ref: '../../components/schemas/TokenType'
+                      $ref: '../../components/schemas.yml/schemas/TokenType'
                     metadataURI:
-                      $ref: '../../components/schemas/NftMetadataURI'
+                      $ref: '../../components/schemas.yml/schemas/NftMetadataURI'
                     metadata:
-                      $ref: '../../components/schemas/NftMetadata'
+                      $ref: '../../components/schemas.yml/schemas/NftMetadata'
           description: OK
         '400':
           content:
             application/json:
               schema:
-                $ref: '../../components/schemas/Error400'
+                $ref: '../../components/schemas.yml/schemas/Error400'
           description: >-
             Bad Request. Validation failed for the given object in the HTTP Body
             or Request parameters.
@@ -166,8 +166,8 @@ paths:
             application/json:
               schema:
                 oneOf:
-                  - $ref: '../../components/schemas/Error401NotActive'
-                  - $ref: '../../components/schemas/Error401Invalid'
+                  - $ref: '../../components/schemas.yml/schemas/Error401NotActive'
+                  - $ref: '../../components/schemas.yml/schemas/Error401Invalid'
           description: >-
             Unauthorized. Not valid or inactive subscription key present in the
             HTTP Header.
@@ -179,12 +179,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '../../components/schemas/Error403'
+                $ref: '../../components/schemas.yml/schemas/Error403'
         '500':
           content:
             application/json:
               schema:
-                $ref: '../../components/schemas/Error500'
+                $ref: '../../components/schemas.yml/schemas/Error500'
           description: >-
             Internal server error. There was an error on the server during the
             processing of the request.
@@ -205,7 +205,7 @@ paths:
           name: chain
           required: true
           schema:
-            $ref: '../../components/schemas/ChainEnum'
+            $ref: '../../components/schemas.yml/schemas/ChainEnum'
         - description: >-
             The blockchain address of the token (NFT collection or any fungible
             token).
@@ -213,22 +213,22 @@ paths:
           name: tokenAddress
           required: true
           schema:
-            $ref: '../../components/schemas/TokenAddress'
+            $ref: '../../components/schemas.yml/schemas/TokenAddress'
         - description: The ID of a specific NFT token.
           in: query
           name: tokenId
           schema:
-            $ref: '../../components/schemas/TokenId'
+            $ref: '../../components/schemas.yml/schemas/TokenId'
         - description: The number of items per page (default is 50).
           in: query
           name: pageSize
           schema:
-            $ref: '../../components/schemas/PageSize'
+            $ref: '../../components/schemas.yml/schemas/PageSize'
         - description: The offset to obtain next page of the data.
           in: query
           name: offset
           schema:
-            $ref: '../../components/schemas/Offset'
+            $ref: '../../components/schemas.yml/schemas/Offset'
       responses:
         '200':
           content:
@@ -249,7 +249,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '../../components/schemas/Error400'
+                $ref: '../../components/schemas.yml/schemas/Error400'
           description: >-
             Bad Request. Validation failed for the given object in the HTTP Body
             or Request parameters.
@@ -258,8 +258,8 @@ paths:
             application/json:
               schema:
                 oneOf:
-                  - $ref: '../../components/schemas/Error401NotActive'
-                  - $ref: '../../components/schemas/Error401Invalid'
+                  - $ref: '../../components/schemas.yml/schemas/Error401NotActive'
+                  - $ref: '../../components/schemas.yml/schemas/Error401Invalid'
           description: >-
             Unauthorized. Not valid or inactive subscription key present in the
             HTTP Header.
@@ -271,12 +271,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '../../components/schemas/Error403'
+                $ref: '../../components/schemas.yml/schemas/Error403'
         '500':
           content:
             application/json:
               schema:
-                $ref: '../../components/schemas/Error500'
+                $ref: '../../components/schemas.yml/schemas/Error500'
           description: >-
             Internal server error. There was an error on the server during the
             processing of the request.
@@ -333,7 +333,7 @@ paths:
           name: chain
           required: true
           schema:
-            $ref: '../../components/schemas/ChainEnum'
+            $ref: '../../components/schemas.yml/schemas/ChainEnum'
         - description: The blockchain address of the wallet.
           in: query
           name: address
@@ -348,12 +348,12 @@ paths:
           name: tokenAddress
           required: true
           schema:
-            $ref: '../../components/schemas/TokenAddress'
+            $ref: '../../components/schemas.yml/schemas/TokenAddress'
         - description: The ID of a specific NFT token.
           in: query
           name: tokenId
           schema:
-            $ref: '../../components/schemas/TokenId'
+            $ref: '../../components/schemas.yml/schemas/TokenId'
       responses:
         '200':
           content:
@@ -366,7 +366,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '../../components/schemas/Error400'
+                $ref: '../../components/schemas.yml/schemas/Error400'
           description: >-
             Bad Request. Validation failed for the given object in the HTTP Body
             or Request parameters.
@@ -375,8 +375,8 @@ paths:
             application/json:
               schema:
                 oneOf:
-                  - $ref: '../../components/schemas/Error401NotActive'
-                  - $ref: '../../components/schemas/Error401Invalid'
+                  - $ref: '../../components/schemas.yml/schemas/Error401NotActive'
+                  - $ref: '../../components/schemas.yml/schemas/Error401Invalid'
           description: >-
             Unauthorized. Not valid or inactive subscription key present in the
             HTTP Header.
@@ -388,12 +388,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '../../components/schemas/Error403'
+                $ref: '../../components/schemas.yml/schemas/Error403'
         '500':
           content:
             application/json:
               schema:
-                $ref: '../../components/schemas/Error500'
+                $ref: '../../components/schemas.yml/schemas/Error500'
           description: >-
             Internal server error. There was an error on the server during the
             processing of the request.
