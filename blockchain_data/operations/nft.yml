@@ -235,6 +235,8 @@ paths:
             application/json:
               schema:
                 type: array
+                items :
+                  type : string
                 description: >-
                   List of all addresses that own a token in a specified
                   collection.
