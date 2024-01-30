@@ -6,6 +6,46 @@ paths:
   # VA
   /v3/ledger/account:
     $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1account"
+  /v3/ledger/account/count:
+    $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1account~1count"
+  /v3/ledger/account/batch:
+    $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1account~1batch"
+  /v3/ledger/account/customer/{id}:
+    $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1account~1customer~1{id}"
+  /v3/ledger/account/{id}:
+    $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1account~1{id}"
+  /v3/ledger/account/{id}/balance:
+    $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1account~1{id}~1balance"
+  /v3/ledger/account/block/{id}:
+    $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1block~1{id}"
+  /v3/ledger/account/block/{id}/detail:
+    $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1block~1{id}~1detail"
+  /v3/ledger/account/block/account/{id}:
+    $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1block~1account~1{id}"
+  /v3/ledger/account/{id}/activate:
+    $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1account~1{id}~1activate"
+  /v3/ledger/account/{id}/deactivate:
+    $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1account~1{id}~1deactivate"
+  /v3/ledger/account/{id}/freeze:
+    $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1account~1{id}~1freeze"
+  /v3/ledger/account/{id}/unfreeze:
+    $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1account~1{id}~1unfreeze"
+  /v3/ledger/transaction:
+    $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1transaction"
+  /v3/ledger/transaction/batch:
+    $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1transaction~1batch"
+  /v3/ledger/transaction/account:
+    $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1transaction~1account"
+  /v3/ledger/transaction/customer:
+    $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1transaction~1customer"
+  /v3/ledger/transaction/ledger:
+    $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1transaction~1ledger"
+  /v3/ledger/transaction/reference/{reference}:
+    $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1transaction~1reference~1{reference}"
+  /v3/ledger/deposits:
+    $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1deposits"
+  /v3/ledger/deposits/count:
+    $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1deposits~1count"
 
 servers:
   - url: https://api.tatum.io/
