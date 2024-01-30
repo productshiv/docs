@@ -46,6 +46,27 @@ paths:
     $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1deposits"
   /v3/ledger/deposits/count:
     $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1deposits~1count"
+  
+  /v3/ledger/customer:
+    $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1customer"
+  /v3/ledger/customer/{id}:
+    $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1customer~1{id}"
+  /v3/ledger/customer/{id}/activate:
+    $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1customer~1{id}~1activate"
+  /v3/ledger/customer/{id}/deactivate:
+    $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1customer~1{id}~1deactivate"
+  /v3/ledger/customer/{id}/enable:
+    $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1customer~1{id}~1enable"
+  /v3/ledger/customer/{id}/disable:
+    $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1customer~1{id}~1disable"
+  /v3/ledger/virtualCurrency:
+    $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1virtualCurrency"
+  /v3/ledger/virtualCurrency/{name}:
+    $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1virtualCurrency~1{name}"
+  /v3/ledger/virtualCurrency/mint:
+     $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1virtualCurrency~1mint"
+  /v3/ledger/virtualCurrency/revoke:
+     $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1virtualCurrency~1revoke"
 
 servers:
   - url: https://api.tatum.io/

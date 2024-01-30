@@ -2175,5 +2175,811 @@ paths:
         tags:
           - Deposit
   
+    /v3/ledger/customer:
+      get:
+        description: >
+          <h4>1 credit per API call.</h4><br/>
+
+          <p>List of all customers. Also inactive an disabled customers are
+          present.</p>
+        operationId: findAllCustomers
+        parameters:
+          - description: Max number of items per page is 50.
+            in: query
+            name: pageSize
+            schema:
+              type: number
+              example: 10
+              maximum: 50
+              minimum: 1
+            required: true
+          - description: Offset to obtain next page of the data.
+            in: query
+            name: offset
+            schema:
+              type: number
+              example: 0
+        responses:
+          '200':
+            content:
+              application/json:
+                schema:
+                  items:
+                    $ref: '../../components/schemas.yml#/components/schemas/Customer'
+                  type: array
+            description: OK
+          '400':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error400'
+            description: >-
+              Bad Request. Validation failed for the given object in the HTTP Body
+              or Request parameters.
+          '401':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401NotActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401Invalid'
+            description: >-
+              Unauthorized. Not valid or inactive subscription key present in the
+              HTTP Header.
+          '500':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error500'
+            description: >-
+              Internal server error. There was an error on the server while
+              processing the request.
+        security:
+          - X-API-Key: []
+        x-codeSamples: []
+        summary: List all customers
+        tags:
+          - Customer
+    /v3/ledger/customer/{id}:
+      get:
+        description: >-
+          <h4>1 credit per API call.</h4><br/><p>Using anonymized external ID or
+          internal customer ID you can access customer detail information.
+          Internal ID is needed to call other customer related methods.</p>
+        operationId: getCustomerByExternalOrInternalId
+        parameters:
+          - description: Customer external or internal ID
+            in: path
+            name: id
+            required: true
+            schema:
+              type: string
+              maxLength: 100
+              minLength: 1
+        responses:
+          '200':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Customer'
+            description: OK
+          '400':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error400'
+            description: >-
+              Bad Request. Validation failed for the given object in the HTTP Body
+              or Request parameters.
+          '401':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401NotActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401Invalid'
+            description: >-
+              Unauthorized. Not valid or inactive subscription key present in the
+              HTTP Header.
+          '403':
+            description: >-
+              Forbidden. The request is authenticated, but it is not possible to
+              required perform operation due to logical error or invalid
+              permissions.
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error403CustomerNotExists'
+          '500':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error500'
+            description: >-
+              Internal server error. There was an error on the server while
+              processing the request.
+        security:
+          - X-API-Key: []
+        x-codeSamples: []
+        summary: Get customer details
+        tags:
+          - Customer
+      put:
+        description: >-
+          <h4>2 credits per API call.</h4><br/><p>This method is helpful in case
+          your primary system will change ID's or customer will change the country
+          he/she is supposed to be in compliance with.</p>
+        operationId: updateCustomer
+        parameters:
+          - description: Customer internal ID
+            in: path
+            name: id
+            required: true
+            schema:
+              type: string
+              maxLength: 50
+              minLength: 10
+        requestBody:
+          content:
+            application/json:
+              schema:
+                $ref: '../../components/schemas.yml#/components/schemas/CustomerUpdate'
+          required: true
+        responses:
+          '200':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Customer'
+            description: OK
+          '400':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error400'
+            description: >-
+              Bad Request. Validation failed for the given object in the HTTP Body
+              or Request parameters.
+          '401':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401NotActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401Invalid'
+            description: >-
+              Unauthorized. Not valid or inactive subscription key present in the
+              HTTP Header.
+          '403':
+            description: >-
+              Forbidden. The request is authenticated, but it is not possible to
+              required perform operation due to logical error or invalid
+              permissions.
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error403CustomerInternalNotExists'
+          '500':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error500'
+            description: >-
+              Internal server error. There was an error on the server while
+              processing the request.
+        security:
+          - X-API-Key: []
+        x-codeSamples: []
+        summary: Update customer
+        tags:
+          - Customer
+    /v3/ledger/customer/{id}/activate:
+      put:
+        description: >-
+          <h4>2 credits per API call.</h4><br/><p>Activated customer is able to do
+          any operation.</p>
+        operationId: activateCustomer
+        parameters:
+          - description: Customer internal ID
+            in: path
+            name: id
+            required: true
+            schema:
+              type: string
+              maxLength: 50
+              minLength: 10
+        responses:
+          '204':
+            description: OK
+          '400':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error400'
+            description: >-
+              Bad Request. Validation failed for the given object in the HTTP Body
+              or Request parameters.
+          '401':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401NotActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401Invalid'
+            description: >-
+              Unauthorized. Not valid or inactive subscription key present in the
+              HTTP Header.
+          '403':
+            description: >-
+              Forbidden. The request is authenticated, but it is not possible to
+              required perform operation due to logical error or invalid
+              permissions.
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403CustomerInternalNotExists'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403CustomerActive'
+          '500':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error500'
+            description: >-
+              Internal server error. There was an error on the server while
+              processing the request.
+        security:
+          - X-API-Key: []
+        x-codeSamples: []
+        summary: Activate customer
+        tags:
+          - Customer
+    /v3/ledger/customer/{id}/deactivate:
+      put:
+        description: >-
+          <h4>2 credits per API call.</h4><br/><p>Deactivate customer is not able
+          to do any operation. Customer can be deactivated only when all their
+          accounts are already deactivated.</p>
+        operationId: deactivateCustomer
+        parameters:
+          - description: Customer internal ID
+            in: path
+            name: id
+            required: true
+            schema:
+              type: string
+              maxLength: 50
+              minLength: 10
+        responses:
+          '204':
+            description: OK
+          '400':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error400'
+            description: >-
+              Bad Request. Validation failed for the given object in the HTTP Body
+              or Request parameters.
+          '401':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401NotActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401Invalid'
+            description: >-
+              Unauthorized. Not valid or inactive subscription key present in the
+              HTTP Header.
+          '403':
+            description: >-
+              Forbidden. The request is authenticated, but it is not possible to
+              required perform operation due to logical error or invalid
+              permissions.
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: >-
+                        ../../components/schemas.yml#/components/schemas/Error403CustomerDeactivateActiveAccounts
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403CustomerInactive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403CustomerInternalNotExists'
+          '500':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error500'
+            description: >-
+              Internal server error. There was an error on the server while
+              processing the request.
+        security:
+          - X-API-Key: []
+        x-codeSamples: []
+        summary: Deactivate customer
+        tags:
+          - Customer
+    /v3/ledger/customer/{id}/enable:
+      put:
+        description: >-
+          <h4>2 credits per API call.</h4><br/><p>Enabled customer can perform all
+          operations. By default all customers are enabled. All previously blocked
+          account balances will be unblocked.</p>
+        operationId: enableCustomer
+        parameters:
+          - description: Customer internal ID
+            in: path
+            name: id
+            required: true
+            schema:
+              type: string
+              maxLength: 50
+              minLength: 10
+        responses:
+          '204':
+            description: OK
+          '400':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error400'
+            description: >-
+              Bad Request. Validation failed for the given object in the HTTP Body
+              or Request parameters.
+          '401':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401NotActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401Invalid'
+            description: >-
+              Unauthorized. Not valid or inactive subscription key present in the
+              HTTP Header.
+          '403':
+            description: >-
+              Forbidden. The request is authenticated, but it is not possible to
+              required perform operation due to logical error or invalid
+              permissions.
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403CustomerInactive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403CustomerEnabled'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403CustomerInternalNotExists'
+          '500':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error500'
+            description: >-
+              Internal server error. There was an error on the server while
+              processing the request.
+        security:
+          - X-API-Key: []
+        x-codeSamples: []
+        summary: Enable customer
+        tags:
+          - Customer
+    /v3/ledger/customer/{id}/disable:
+      put:
+        description: >-
+          <h4>2 credits per API call.</h4><br/><p>Disabled customer cannot perform
+          end-user operations, such as create new accounts or send transactions.
+          Available balance on all accounts is set to 0. Account balance will stay
+          untouched.</p>
+        operationId: disableCustomer
+        parameters:
+          - description: Customer internal ID
+            in: path
+            name: id
+            required: true
+            schema:
+              type: string
+              maxLength: 50
+              minLength: 10
+        responses:
+          '204':
+            description: OK
+          '400':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error400'
+            description: >-
+              Bad Request. Validation failed for the given object in the HTTP Body
+              or Request parameters.
+          '401':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401NotActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401Invalid'
+            description: >-
+              Unauthorized. Not valid or inactive subscription key present in the
+              HTTP Header.
+          '403':
+            description: >-
+              Forbidden. The request is authenticated, but it is not possible to
+              required perform operation due to logical error or invalid
+              permissions.
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403CustomerInactive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403CustomerDisabled'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403CustomerInternalNotExists'
+          '500':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error500'
+            description: >-
+              Internal server error. There was an error on the server while
+              processing the request.
+        security:
+          - X-API-Key: []
+        x-codeSamples: []
+        summary: Disable customer
+        tags:
+          - Customer
+    /v3/ledger/virtualCurrency:
+      post:
+        description: >
+          <p><b>2 credits per API call</b></p>
+
+          <p>Create new virtual currency with given supply stored in account. This
+          will create Tatum internal virtual currency. Every virtual currency must
+          be prefixed with <b>VC_</b>.</p>
+
+          <p>Every virtual currency must be pegged to existing FIAT or supported
+          cryptocurrency. 1 unit of virtual currency has then the same amount as 1
+          unit of the base currency it is pegged to. It is possible to set a
+          custom base rate for the virtual currency. (baseRate = 2 => 1 VC unit =
+          2 basePair units)</p>
+
+          <p>Tatum virtual currency acts as any other asset within Tatum. To
+          create a fungible token, see the <a
+          href="https://apidoc.tatum.io/tag/Fungible-Tokens-(ERC-20-or-compatible)#operation/Erc20Deploy"
+          target="_blank">API for deploying a fungible token smart
+          contract</a>.</p>
+
+          <p>This operation returns the newly created Tatum Ledger account with an
+          initial balance set to the virtual currency's total supply. Total supply
+          can be changed in the future.</p>
+
+          <p>Digital assets:</p>
+
+          <ul>
+
+          <li><b>USDC_MATIC</b> refers to contract
+          <code>0x2791bca1f2de4661ed88a30c99a7a9449aa84174</code> on Polygon
+          mainnet.</li>
+
+          <li><b>USDC_MATIC_NATIVE</b> refers to contract
+          <code>0x3c499c542cef5e3811e1192ce70d8cc03d5c3359</code> on Polygon
+          mainnet.</li>
+
+          </ul>
+        operationId: createCurrency
+        requestBody:
+          content:
+            application/json:
+              schema:
+                $ref: '../../components/schemas.yml#/components/schemas/VirtualCurrency'
+          required: true
+        responses:
+          '200':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Account'
+            description: OK
+          '400':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error400'
+            description: >-
+              Bad Request. Validation failed for the given object in the HTTP Body
+              or Request parameters.
+          '401':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401NotActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401Invalid'
+            description: >-
+              Unauthorized. Not valid or inactive subscription key present in the
+              HTTP Header.
+          '403':
+            description: >-
+              Forbidden. The request is authenticated, but it is not possible to
+              required perform operation due to logical error or invalid
+              permissions.
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403VCPrefix'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403VCDuplicate'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403VCCreateFailed'
+          '500':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error500'
+            description: >-
+              Internal server error. There was an error on the server while
+              processing the request.
+        security:
+          - X-API-Key: []
+        x-codeSamples: []
+        summary: Create new virtual currency
+        tags:
+          - Virtual Currency
+      put:
+        description: >-
+          <h4>2 credits per API call.</h4><br/><p>Change base pair and/or base
+          rate of existing virtual currency.</p>
+        operationId: updateCurrency
+        requestBody:
+          content:
+            application/json:
+              schema:
+                $ref: '../../components/schemas.yml#/components/schemas/VirtualCurrencyUpdate'
+          required: true
+        responses:
+          '204':
+            description: OK
+          '400':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error400'
+            description: >-
+              Bad Request. Validation failed for the given object in the HTTP Body
+              or Request parameters.
+          '401':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401NotActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401Invalid'
+            description: >-
+              Unauthorized. Not valid or inactive subscription key present in the
+              HTTP Header.
+          '403':
+            description: >-
+              Forbidden. The request is authenticated, but it is not possible to
+              required perform operation due to logical error or invalid
+              permissions.
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error403VCNotFound'
+          '500':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error500'
+            description: >-
+              Internal server error. There was an error on the server while
+              processing the request.
+        security:
+          - X-API-Key: []
+        x-codeSamples: []
+        summary: Update virtual currency
+        tags:
+          - Virtual Currency
+    /v3/ledger/virtualCurrency/{name}:
+      get:
+        description: |
+          <p><b>1 credit per API call</b></p>
+          <p>Get detail of virtual currency.</p>
+        operationId: getCurrency
+        parameters:
+          - in: path
+            name: name
+            required: true
+            schema:
+              maxLength: 100
+              minLength: 3
+              type: string
+        responses:
+          '200':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/VC'
+            description: OK
+          '400':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error400'
+            description: >-
+              Bad Request. Validation failed for the given object in the HTTP Body
+              or Request parameters.
+          '401':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401NotActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401Invalid'
+            description: >-
+              Unauthorized. Not valid or inactive subscription key present in the
+              HTTP Header.
+          '403':
+            description: >-
+              Forbidden. The request is authenticated, but it is not possible to
+              required perform operation due to logical error or invalid
+              permissions.
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403VCNotFound'
+          '500':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error500'
+            description: >-
+              Internal server error. There was an error on the server while
+              processing the request.
+        security:
+          - X-API-Key: []
+        x-codeSamples: []
+        summary: Get virtual currency
+        tags:
+          - Virtual Currency
+    /v3/ledger/virtualCurrency/mint:
+      put:
+        description: >
+          <p><b>2 credits per API call</b></p>
+
+          <p>Create new supply of virtual currency linked on the given accountId.
+          Method increases the total supply of the currency.</p>
+
+          <p>This method creates Ledger transaction with operationType MINT with
+          undefined counterAccountId.</p>
+        operationId: mintCurrency
+        requestBody:
+          content:
+            application/json:
+              schema:
+                $ref: '../../components/schemas.yml#/components/schemas/VirtualCurrencyOperation'
+          required: true
+        responses:
+          '200':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/TransactionResult'
+            description: OK
+          '400':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error400'
+            description: >-
+              Bad Request. Validation failed for the given object in the HTTP Body
+              or Request parameters.
+          '401':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401NotActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401Invalid'
+            description: >-
+              Unauthorized. Not valid or inactive subscription key present in the
+              HTTP Header.
+          '403':
+            description: >-
+              Forbidden. The request is authenticated, but it is not possible to
+              required perform operation due to logical error or invalid
+              permissions.
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403VCNoAccount'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403VCTxFailed'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403VCNotFound'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403RateNotFound'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403AccountNotExists'
+          '500':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error500'
+            description: >-
+              Internal server error. There was an error on the server while
+              processing the request.
+        security:
+          - X-API-Key: []
+        x-codeSamples: []
+        summary: Create new supply of virtual currency
+        tags:
+          - Virtual Currency
+    /v3/ledger/virtualCurrency/revoke:
+      put:
+        description: >
+          <h4>2 credits per API call.</h4><br/>
+
+          <p>Destroy supply of virtual currency linked on the given accountId.
+          Method decreases the total supply of the currency.<br/>
+
+          This method creates Ledger transaction with operationType REVOKE with
+          undefined counterAccountId.</p>
+        operationId: revokeCurrency
+        requestBody:
+          content:
+            application/json:
+              schema:
+                $ref: '../../components/schemas.yml#/components/schemas/VirtualCurrencyOperation'
+          required: true
+        responses:
+          '200':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/TransactionResult'
+            description: OK
+          '400':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error400'
+            description: >-
+              Bad Request. Validation failed for the given object in the HTTP Body
+              or Request parameters.
+          '401':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401NotActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401Invalid'
+            description: >-
+              Unauthorized. Not valid or inactive subscription key present in the
+              HTTP Header.
+          '403':
+            description: >-
+              Forbidden. The request is authenticated, but it is not possible to
+              required perform operation due to logical error or invalid
+              permissions.
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403VCNoAccount'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403VCTxFailed'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403VCNotFound'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403RateNotFound'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403AccountNotExists'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403VCRevokeBalance'
+          '500':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error500'
+            description: >-
+              Internal server error. There was an error on the server while
+              processing the request.
+        security:
+          - X-API-Key: []
+        x-codeSamples: []
+        summary: Destroy supply of virtual currency
+        tags:
+          - Virtual Currency
+  
 servers:
   - url: https://api.tatum.io/
