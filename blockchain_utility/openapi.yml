@@ -17,9 +17,9 @@ paths:
   /v3/ledger/account/{id}/balance:
     $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1account~1{id}~1balance"
   /v3/ledger/account/block/{id}:
-    $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1block~1{id}"
+    $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1account~1block~1{id}"
   /v3/ledger/account/block/{id}/detail:
-    $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1block~1{id}~1detail"
+    $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1account~1block~1{id}~1detail"
   /v3/ledger/account/block/account/{id}:
     $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1block~1account~1{id}"
   /v3/ledger/account/{id}/activate:
