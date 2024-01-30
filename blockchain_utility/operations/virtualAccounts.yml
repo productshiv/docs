@@ -12,53 +12,2168 @@ info:
   version: "1.0.0"
 openapi: 3.0.3
 paths:
-    /v3/data/collections:
-      get:
-        tags:
-          - Virtual Accounts
-        summary: getCollectionsData
-        operationId: getCollectionsData
-        parameters:
-          - name: chain
-            in: query
-            required: true
-            schema:
-              type: string
-              enum:
-                - ethereum
-                - ethereum-sepolia
-                - celo
-                - celo-testnet
-                - bsc
-                - bsc-testnet
-                - polygon
-                - polygon-mumbai
-                - eon
-                - chiliz
-            description: The blockchain to query
-          - name: collectionAddresses
-            in: query
-            required: true
-            schema:
-              type: string
-            description: Address of the collection
+    /v3/ledger/account:
+      post:
+        description: >
+          <p><b>2 credits per API call</b></p>
+
+          <p>Create a new virtual account for a customer.</p>
+
+          <ul>
+
+          <li>If the customer that you specified in the request body already
+          exists, the newly created virtual account is added to this customer's
+          list of accounts.</li>
+
+          <li>If the customer that you specified in the request body does not
+          exist yet, a new customer is created together with the virtual account,
+          and the virtual account is added to this customer.</li>
+
+          </ul>
+
+          <p>You can create a virtual account for any supported cryptocurrency,
+          fiat currency, Tatum virtual currency, or fungible tokens created within
+          Tatum. Once the currency/asset is set for a virtual account, it cannot
+          be changed.</p>
+
+          <p><b>Virtual account balance</b></p>
+
+          <p>A virtual account has its own balance. The balance can be logically
+          presented by the account balance and available balance:</p>
+
+          <ul>
+
+          <li>The <b>account balance</b> (<code>accountBalance</code>) represents
+          all assets on the account, both available and blocked.</li>
+
+          <li>The <b>available balance</b> (<code>availableBalance</code>)
+          represents the account balance minus the blocked assets. Use the
+          available balance to determine how much a customer can send or withdraw
+          from their virtual account.</li>
+
+          </ul>
+
+          <p><b>Cryptocurrency virtual accounts</b></p>
+
+          <p>When you create a virtual account based on a cryptocurrency (for
+          example, BTC or ETH), you have to provide the extended public key
+          (<code>xpub</code>) of the blockchain wallet that will be connected to
+          this account.</p>
+
+          <p><b>NOTE:</b> Adding <code>xpub</code> to the virtual account does
+          <b>not</b> connect any specific blockchain address to this account.
+          <code>xpub</code> is a generator of addresses, not an address
+          itself.</p>
+
+          <p>Not all blockchains provide <code>xpub</code> for wallets, or Tatum
+          may not support wallets on some blockchains. In such cases, use the
+          wallet address or the account address instead.</p>
+
+          <ul>
+
+          <li><b>ALGO:</b> No <code>xpub</code> provided; use <code>address</code>
+          from the <a
+          href="https://apidoc.tatum.io/tag/Algorand#operation/AlgorandGenerateWallet"
+          target="_blank">generated wallet</a> instead.</li>
+
+          <li><b>BCH:</b> Obtain <code>xpub</code> from the <a
+          href="https://apidoc.tatum.io/tag/Bitcoin-Cash#operation/BchGenerateWallet"
+          target="_blank">generated wallet</a>.</li>
+
+          <li><b>BNB:</b> No <code>xpub</code> provided; use <code>address</code>
+          from the <a
+          href="https://apidoc.tatum.io/tag/BNB-Beacon-Chain#operation/BnbGenerateWallet"
+          target="_blank">generated wallet</a> instead.</li>
+
+          <li><b>BSC:</b> Obtain <code>xpub</code> from the <a
+          href="https://apidoc.tatum.io/tag/BNB-Smart-Chain#operation/BscGenerateWallet"
+          target="_blank">generated wallet</a> instead.</li>
+
+          <li><b>BTC:</b> Obtain <code>xpub</code> from the <a
+          href="https://apidoc.tatum.io/tag/Bitcoin#operation/BtcGenerateWallet"
+          target="_blank">generated wallet</a> instead.</li>
+
+          <li><b>CELO:</b> Obtain <code>xpub</code> from the <a
+          href="https://apidoc.tatum.io/tag/Celo#operation/CeloGenerateWallet"
+          target="_blank">generated wallet</a>.</li>
+
+          <li><b>DOGE:</b> Obtain <code>xpub</code> from the <a
+          href="https://apidoc.tatum.io/tag/Dogecoin#operation/DogeGenerateWallet"
+          target="_blank">generated wallet</a>.</li>
+
+          <li><b>EGLD:</b> No <code>xpub</code> provided; use <code>address</code>
+          from the <a
+          href="https://apidoc.tatum.io/tag/Elrond#operation/EgldGenerateAddress"
+          target="_blank">generated blockchain address</a> instead.<br
+          />Blockchain addresses on Elrond are generated based on the mnemonic of
+          an Elrond wallet. If you do not have an Elrond wallet, <a
+          href="https://apidoc.tatum.io/tag/Elrond/#operation/EgldGenerateWallet"
+          target="_blank">create one</a>.</li>
+
+          <li><b>ETH:</b> Obtain <code>xpub</code> from the <a
+          href="https://apidoc.tatum.io/tag/Ethereum#operation/EthGenerateWallet"
+          target="_blank">generated wallet</a>.</li>
+
+          <li><b>FLOW:</b> Obtain <code>xpub</code> from the <a
+          href="https://apidoc.tatum.io/tag/Flow#operation/FlowGenerateWallet"
+          target="_blank">generated wallet</a>.</li>
+
+          <li><b>KCS:</b> Obtain <code>xpub</code> from the <a
+          href="https://apidoc.tatum.io/tag/KuCoin#operation/KcsGenerateWallet"
+          target="_blank">generated wallet</a>.</li>
+
+          <li><b>KLAY:</b> Obtain <code>xpub</code> from the <a
+          href="https://apidoc.tatum.io/tag/Klaytn#operation/KlaytnGenerateWallet"
+          target="_blank">generated wallet</a>.</li>
+
+          <li><b>LTC:</b> Obtain <code>xpub</code> from the <a
+          href="https://apidoc.tatum.io/tag/Litecoin#operation/LtcGenerateWallet"
+          target="_blank">generated wallet</a>.</li>
+
+          <li><b>MATIC:</b> Obtain <code>xpub</code> from the <a
+          href="https://apidoc.tatum.io/tag/Polygon#operation/PolygonGenerateWallet"
+          target="_blank">generated wallet</a>.</li>
+
+          <li><b>SOL:</b> No <code>xpub</code> provided; use <code>address</code>
+          from the <a
+          href="https://apidoc.tatum.io/tag/Solana#operation/SolanaGenerateWallet"
+          target="_blank">generated wallet</a> instead.</li>
+
+          <li><b>TRON:</b> Obtain <code>xpub</code> from the <a
+          href="https://apidoc.tatum.io/tag/Tron#operation/GenerateTronwallet"
+          target="_blank">generated wallet</a>.</li>
+
+          <li><b>XDC:</b> Obtain <code>xpub</code> from the <a
+          href="https://apidoc.tatum.io/tag/XinFin#operation/XdcGenerateWallet"
+          target="_blank">generated wallet</a>.</li>
+
+          <li><b>XLM:</b> No <code>xpub</code> provided; use <code>address</code>
+          from the <a
+          href="https://apidoc.tatum.io/tag/Stellar#operation/XlmWallet"
+          target="_blank">generated account</a> instead.</li>
+
+          <li><b>XRP:</b> No <code>xpub</code> provided; use <code>address</code>
+          from the <a href="https://apidoc.tatum.io/tag/XRP#operation/XrpWallet"
+          target="_blank">generated account</a> instead.</li>
+
+          </ul>
+
+          <p><b>Connect a virtual account to the blockchain</b></p>
+
+          <ul>
+
+          <li>If the virtual account was created with the wallet's
+          <code>xpub</code>, <a
+          href="https://apidoc.tatum.io/tag/Blockchain-addresses#operation/generateDepositAddress"
+          target="_blank">generate a new blockchain address</a> for this
+          account.</li>
+
+          <li>If the virtual account was created with the wallet's or account's
+          address instead of the wallet's <code>xpub</code>, <a
+          href="https://apidoc.tatum.io/tag/Blockchain-addresses#operation/assignAddress"
+          target="_blank">assign an existing blockchain address</a> to this
+          account.</li>
+
+          </ul>
+
+          <p>You can connect multiple blockchain addresses to one virtual
+          account.</p>
+
+          <p>Digital assets:</p>
+
+          <ul>
+
+          <li><b>USDC_MATIC</b> refers to contract
+          <code>0x2791bca1f2de4661ed88a30c99a7a9449aa84174</code> on Polygon
+          mainnet.</li>
+
+          <li><b>USDC_MATIC_NATIVE</b> refers to contract
+          <code>0x3c499c542cef5e3811e1192ce70d8cc03d5c3359</code> on Polygon
+          mainnet.</li>
+
+          </ul>
+        operationId: createAccount
+        requestBody:
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '../../components/schemas.yml#/components/schemas/CreateAccountXpub'
+                  - $ref: '../../components/schemas.yml#/components/schemas/CreateAccount'
+          required: true
         responses:
           '200':
-            description: Successful response
             content:
               application/json:
                 schema:
-                  type: object
-                  properties:
-                    # Define the properties of your response here
-                    exampleProperty:
-                      type: string
+                  $ref: '../../components/schemas.yml#/components/schemas/Account'
+            description: OK
           '400':
-            description: Bad request
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error400'
+            description: >-
+              Bad Request. Validation failed for the given object in the HTTP Body
+              or Request parameters.
           '401':
-            description: Unauthorized
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401NotActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401Invalid'
+            description: >-
+              Unauthorized. Not valid or inactive subscription key present in the
+              HTTP Header.
+          '403':
+            description: >-
+              Forbidden. The request is authenticated, but it is not possible to
+              perform the required operation due to a logical error or invalid
+              permissions.
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403ComplianceBtc'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403ComplianceEth'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403AccountTestnet'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403AccountXpub'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403AccountCurrency'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403AccountIncompatibleXpub'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403AccountIncompatibleXpubBtc'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403AccountAddressGeneral'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403CustomerNotExists'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403CustomerNotActive'
           '500':
-            description: Internal server error
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error500'
+            description: >-
+              Internal server error. There was an error on the server while
+              processing the request.
+        security:
+          - X-API-Key: []
+        x-codeSamples: []
+        summary: Create a virtual account
+        tags:
+          - Account
+      get:
+        description: >-
+          <h4>1 credit per API call.</h4><br/><p>Lists all accounts. Inactive
+          accounts are also visible.</p>
+        operationId: getAccounts
+        parameters:
+          - description: Max number of items per page is 50.
+            in: query
+            name: pageSize
+            schema:
+              type: number
+              example: 20
+              maximum: 50
+              minimum: 1
+            required: false
+          - description: Page number
+            in: query
+            name: page
+            schema:
+              type: number
+              example: 0
+          - description: Direction of sorting. Can be asc or desc
+            in: query
+            name: sort
+            schema:
+              type: string
+              enum:
+                - asc
+                - desc
+              example: asc
+          - description: Sort by
+            in: query
+            name: sortBy
+            schema:
+              type: string
+              example: id
+              enum:
+                - id
+                - account_number
+                - account_balance
+                - available_balance
+          - description: Filter only active or non active accounts
+            in: query
+            name: active
+            schema:
+              type: boolean
+              example: true
+          - description: Filter only accounts with non zero balances
+            in: query
+            name: onlyNonZeroBalance
+            schema:
+              type: boolean
+              example: true
+          - description: Filter only frozen or non frozen accounts
+            in: query
+            name: frozen
+            schema:
+              type: boolean
+              example: true
+          - description: Filter by currency
+            in: query
+            name: currency
+            schema:
+              type: string
+              example: BTC
+          - description: Filter by account number
+            in: query
+            name: accountNumber
+            schema:
+              maxLength: 50
+              example: AC_1011_B
+              minLength: 1
+              type: string
+        responses:
+          '200':
+            content:
+              application/json:
+                schema:
+                  items:
+                    $ref: '../../components/schemas.yml#/components/schemas/Account'
+                  type: array
+            description: OK
+          '400':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error400'
+            description: >-
+              Bad Request. Validation failed for the given object in the HTTP Body
+              or Request parameters.
+          '401':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401NotActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401Invalid'
+            description: >-
+              Unauthorized. Not valid or inactive subscription key present in the
+              HTTP Header.
+          '500':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error500'
+            description: >-
+              Internal server error. There was an error on the server while
+              processing the request.
+        security:
+          - X-API-Key: []
+        x-codeSamples: []
+        summary: List all accounts
+        tags:
+          - Account
+    /v3/ledger/account/count:
+      get:
+        description: >-
+          <h4>1 credit per API call.</h4><br/><p>Count of accounts that were found
+          from /v3/ledger/account</p>
+        operationId: getAccountsCount
+        parameters:
+          - description: Max number of items per page is 50.
+            in: query
+            name: pageSize
+            schema:
+              type: number
+              example: 20
+              maximum: 50
+              minimum: 1
+            required: false
+          - description: Page number
+            in: query
+            name: page
+            schema:
+              type: number
+              example: 0
+          - description: Direction of sorting. Can be asc or desc
+            in: query
+            name: sort
+            schema:
+              type: string
+              enum:
+                - asc
+                - desc
+          - description: Sort by
+            in: query
+            name: sortBy
+            schema:
+              type: string
+              example: _id
+              enum:
+                - _id
+                - account_number
+                - account_balance
+                - available_balance
+          - description: Filter only active or non active accounts
+            in: query
+            name: active
+            schema:
+              type: boolean
+              example: true
+          - description: Filter only accounts with non zero balances
+            in: query
+            name: onlyNonZeroBalance
+            schema:
+              type: boolean
+              example: true
+          - description: Filter only frozen or non frozen accounts
+            in: query
+            name: frozen
+            schema:
+              type: boolean
+              example: true
+          - description: Filter by currency
+            in: query
+            name: currency
+            schema:
+              type: string
+              example: BTC
+          - description: Filter by account number
+            in: query
+            name: accountNumber
+            schema:
+              maxLength: 50
+              example: AC_1011_B
+              minLength: 1
+              type: string
+        responses:
+          '200':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/EntitiesCount'
+            description: OK
+          '400':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error400'
+            description: >-
+              Bad Request. Validation failed for the given object in the HTTP Body
+              or Request parameters.
+          '401':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401NotActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401Invalid'
+            description: >-
+              Unauthorized. Not valid or inactive subscription key present in the
+              HTTP Header.
+          '500':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error500'
+            description: >-
+              Internal server error. There was an error on the server while
+              processing the request.
+        security:
+          - X-API-Key: []
+        x-codeSamples: []
+        summary: Count of found entities for get accounts request
+        tags:
+          - Account
+    /v3/ledger/account/batch:
+      post:
+        description: >
+          <h4>2 credits per API call + 1 credit for every account
+          created.</h4><br/>
 
+          <p>Creates new accounts for the customer in a batch call.</p>
+        operationId: createAccountBatch
+        requestBody:
+          content:
+            application/json:
+              schema:
+                $ref: '../../components/schemas.yml#/components/schemas/CreateAccountBatch'
+          required: true
+        responses:
+          '200':
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '../../components/schemas.yml#/components/schemas/Account'
+            description: OK
+          '400':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error400'
+            description: >-
+              Bad Request. Validation failed for the given object in the HTTP Body
+              or Request parameters.
+          '401':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401NotActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401Invalid'
+            description: >-
+              Unauthorized. Not valid or inactive subscription key present in the
+              HTTP Header.
+          '403':
+            description: >-
+              Forbidden. The request is authenticated, but it is not possible to
+              perform the required operation due to a logical error or invalid
+              permissions.
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403ComplianceBtc'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403ComplianceEth'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403AccountTestnet'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403AccountXpub'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403AccountCurrency'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403AccountIncompatibleXpub'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403AccountIncompatibleXpubBtc'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403AccountAddressGeneral'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403CustomerNotExists'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403CustomerNotActive'
+          '500':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error500'
+            description: >-
+              Internal server error. There was an error on the server while
+              processing the request.
+        security:
+          - X-API-Key: []
+        x-codeSamples: []
+        summary: Create multiple accounts in a batch call
+        tags:
+          - Account
+    /v3/ledger/account/customer/{id}:
+      get:
+        description: >-
+          <h4>1 credit per API call.</h4><br/><p>Lists all accounts associated
+          with a customer. Only active accounts are visible.</p>
+        operationId: getAccountsByCustomerId
+        parameters:
+          - description: Max number of items per page is 50.
+            in: query
+            name: pageSize
+            schema:
+              type: number
+              example: 10
+              maximum: 50
+              minimum: 1
+            required: true
+          - description: Offset to obtain the next page of data.
+            in: query
+            name: offset
+            schema:
+              type: number
+              example: 0
+          - description: Internal customer ID
+            in: path
+            name: id
+            required: true
+            schema:
+              example: 5e68c66581f2ee32bc354087
+              type: string
+          - description: For bookkeeping to distinct account purpose.
+            in: query
+            name: accountCode
+            schema:
+              maxLength: 50
+              example: AC_1011_B
+              minLength: 1
+              type: string
+        responses:
+          '200':
+            content:
+              application/json:
+                schema:
+                  items:
+                    $ref: '../../components/schemas.yml#/components/schemas/Account'
+                  type: array
+            description: OK
+          '400':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error400'
+            description: >-
+              Bad Request. Validation failed for the given object in the HTTP Body
+              or Request parameters.
+          '401':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401NotActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401Invalid'
+            description: >-
+              Unauthorized. Not valid or inactive subscription key present in the
+              HTTP Header.
+          '500':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error500'
+            description: >-
+              Internal server error. There was an error on the server while
+              processing the request.
+        security:
+          - X-API-Key: []
+        x-codeSamples: []
+        summary: List all customer accounts
+        tags:
+          - Account
+    /v3/ledger/account/{id}:
+      get:
+        description: >-
+          <h4>1 credit per API call.</h4><br/><p>Gets active account by ID.
+          Displays all information regarding the given account.</p>
+        operationId: getAccountByAccountId
+        parameters:
+          - description: Account ID
+            in: path
+            name: id
+            required: true
+            schema:
+              type: string
+              example: 5e68c66581f2ee32bc354087
+        responses:
+          '200':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Account'
+            description: OK
+          '400':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error400'
+            description: >-
+              Bad Request. Validation failed for the given object in the HTTP Body
+              or Request parameters.
+          '401':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401NotActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401Invalid'
+            description: >-
+              Unauthorized. Not valid or inactive subscription key present in the
+              HTTP Header.
+          '403':
+            description: >-
+              Forbidden. The request is authenticated, but it is not possible to
+              perform the required operation due to a logical error or invalid
+              permissions.
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error403AccountNotExists'
+          '500':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error500'
+            description: >-
+              Internal server error. There was an error on the server while
+              processing the request.
+        security:
+          - X-API-Key: []
+        x-codeSamples: []
+        summary: Get account by ID
+        tags:
+          - Account
+      put:
+        description: >-
+          <h4>2 credits per API call.</h4><br/><p>Update account by ID. Only a
+          small number of fields can be updated.</p>
+        operationId: updateAccountByAccountId
+        parameters:
+          - description: Account ID
+            in: path
+            name: id
+            required: true
+            schema:
+              type: string
+              example: 5e68c66581f2ee32bc354087
+        requestBody:
+          content:
+            application/json:
+              schema:
+                $ref: '../../components/schemas.yml#/components/schemas/UpdateAccount'
+          required: true
+        responses:
+          '204':
+            description: OK
+          '400':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error400'
+            description: >-
+              Bad Request. Validation failed for the given object in the HTTP Body
+              or Request parameters.
+          '401':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401NotActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401Invalid'
+            description: >-
+              Unauthorized. Not valid or inactive subscription key present in the
+              HTTP Header.
+          '403':
+            description: >-
+              Forbidden. The request is authenticated, but it is not possible to
+              perform the required operation due to a logical error or invalid
+              permissions.
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error403AccountNotExists'
+          '500':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error500'
+            description: >-
+              Internal server error. There was an error on the server while
+              processing the request.
+        security:
+          - X-API-Key: []
+        x-codeSamples: []
+        summary: Update account
+        tags:
+          - Account
+    /v3/ledger/account/{id}/balance:
+      get:
+        description: <h4>1 credit per API call.</h4><br/><p>Get balance for the account.</p>
+        operationId: getAccountBalance
+        parameters:
+          - description: Account ID
+            in: path
+            name: id
+            required: true
+            schema:
+              type: string
+              example: 5e68c66581f2ee32bc354087
+        responses:
+          '200':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/AccountBalance'
+            description: OK
+          '400':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error400'
+            description: >-
+              Bad Request. Validation failed for the given object in the HTTP Body
+              or Request parameters.
+          '401':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401NotActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401Invalid'
+            description: >-
+              Unauthorized. Not valid or inactive subscription key present in the
+              HTTP Header.
+          '403':
+            description: >-
+              Forbidden. The request is authenticated, but it is not possible to
+              perform the required operation due to a logical error or invalid
+              permissions.
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error403AccountNotExists'
+          '500':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error500'
+            description: >-
+              Internal server error. There was an error on the server while
+              processing the request.
+        security:
+          - X-API-Key: []
+        x-codeSamples: []
+        summary: Get account balance
+        tags:
+          - Account
+    /v3/ledger/account/block/{id}:
+      post:
+        description: >
+          <h4>2 credits per API call.</h4><br/>
+
+          <p>Blocks an amount in an account. Any number of distinct amounts can be
+          blocked in one account.
+
+          Every new blockage has its own distinct ID, which is used as a
+          reference. When the amount is blocked, it is debited from the available
+          balance of the account.
+
+          The account balance remains the same. The account balance represents the
+          total amount of funds in the account. The available balance represents
+          the total amount of funds that can be used to perform transactions. When
+          an account is frozen, the available balance is set to 0 minus all
+          blockages for the account.</p>
+        operationId: blockAmount
+        parameters:
+          - description: Account ID
+            in: path
+            name: id
+            required: true
+            schema:
+              type: string
+              example: 5e6be89ee6aa436299950c3f
+        requestBody:
+          content:
+            application/json:
+              schema:
+                $ref: '../../components/schemas.yml#/components/schemas/BlockAmount'
+          required: true
+        responses:
+          '200':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Id'
+            description: OK
+          '400':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error400'
+            description: >-
+              Bad Request. Validation failed for the given object in the HTTP Body
+              or Request parameters.
+          '401':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401NotActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401Invalid'
+            description: >-
+              Unauthorized. Not valid or inactive subscription key present in the
+              HTTP Header.
+          '403':
+            description: >-
+              Forbidden. The request is authenticated, but it is not possible to
+              perform the required operation due to a logical error or invalid
+              permissions.
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403AccountNotExists'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403CustomerNotExists'
+          '500':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error500'
+            description: >-
+              Internal server error. There was an error on the server while
+              processing the request.
+        security:
+          - X-API-Key: []
+        x-codeSamples: []
+        summary: Block an amount in an account
+        tags:
+          - Account
+      put:
+        description: >
+          <h4>2 credits per API call.</h4><br/>
+
+          <p>Unblocks a previously blocked amount in an account and invokes a
+          ledger transaction from that account to a different recipient.
+
+          If the request fails, the amount is not unblocked.</p>
+        operationId: unblockAmountWithTransaction
+        parameters:
+          - description: Blockage ID
+            in: path
+            name: id
+            required: true
+            schema:
+              type: string
+              example: 5e6be89ee6aa436299950c3f
+        requestBody:
+          content:
+            application/json:
+              schema:
+                $ref: '../../components/schemas.yml#/components/schemas/UnblockAmount'
+          required: true
+        responses:
+          '200':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/TransactionResult'
+            description: OK
+          '400':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error400'
+            description: >-
+              Bad Request. Validation failed for the given object in the HTTP Body
+              or Request parameters.
+          '401':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401NotActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401Invalid'
+            description: >-
+              Unauthorized. Not valid or inactive subscription key present in the
+              HTTP Header.
+          '403':
+            description: >-
+              Forbidden. The request is authenticated, but it is not possible to
+              perform the required operation due to a logical error or invalid
+              permissions.
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403BlockageNotExists'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403BlockageAmount'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403AmountFormat'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403TxSenderNotFound'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403ComplianceBtc'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403ComplianceEth'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403RateNotFound'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403VCNotFound'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403TxSenderFrozen'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403TxSenderCustomerDisabled'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403TxRecipientNotFound'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403TxCurrency'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403TxBalance'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403TxAmountBtc'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403TxAmountEth'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403TxNotCompliant'
+          '500':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error500'
+            description: >-
+              Internal server error. There was an error on the server while
+              processing the request.
+        security:
+          - X-API-Key: []
+        x-codeSamples: []
+        summary: Unblock an amount in an account and perform a transaction
+        tags:
+          - Account
+      delete:
+        description: >-
+          <h4>1 credit per API call.</h4><br/><p>Unblocks a previously blocked
+          amount in an account. Increases the available balance in the account
+          where the amount was blocked.</p>
+        operationId: deleteBlockAmount
+        parameters:
+          - description: Blockage ID
+            in: path
+            name: id
+            required: true
+            schema:
+              type: string
+              example: 5e6be89ee6aa436299950c3f
+        responses:
+          '204':
+            description: OK
+          '400':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error400'
+            description: >-
+              Bad Request. Validation failed for the given object in the HTTP Body
+              or Request parameters.
+          '401':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401NotActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401Invalid'
+            description: >-
+              Unauthorized. Not valid or inactive subscription key present in the
+              HTTP Header.
+          '500':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error500'
+            description: >-
+              Internal server error. There was an error on the server while
+              processing the request.
+        security:
+          - X-API-Key: []
+        x-codeSamples: []
+        summary: Unblock a blocked amount in an account
+        tags:
+          - Account
+      get:
+        description: >-
+          <h4>1 credit per API call.</h4><br/><p>Gets blocked amounts for an
+          account.</p>
+        operationId: getBlockAmount
+        parameters:
+          - description: Account ID
+            in: path
+            name: id
+            required: true
+            schema:
+              type: string
+              example: 5e6be89ee6aa436299950c3f
+          - description: Max number of items per page is 50.
+            in: query
+            name: pageSize
+            schema:
+              type: number
+              example: 10
+              maximum: 50
+              minimum: 1
+            required: true
+          - description: Offset to obtain the next page of data.
+            in: query
+            name: offset
+            schema:
+              type: number
+              example: 0
+        responses:
+          '200':
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '../../components/schemas.yml#/components/schemas/Blockage'
+            description: OK
+          '400':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error400'
+            description: >-
+              Bad Request. Validation failed for the given object in the HTTP Body
+              or Request parameters.
+          '401':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401NotActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401Invalid'
+            description: >-
+              Unauthorized. Not valid or inactive subscription key present in the
+              HTTP Header.
+          '500':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error500'
+            description: >-
+              Internal server error. There was an error on the server while
+              processing the request.
+        security:
+          - X-API-Key: []
+        x-codeSamples: []
+        summary: Get blocked amounts in an account
+        tags:
+          - Account
+    /v3/ledger/account/block/{id}/detail:
+      get:
+        description: <h4>1 credit per API call.</h4><br/><p>Gets blocked amount by id.</p>
+        operationId: getBlockAmountById
+        parameters:
+          - description: Blocked amount ID
+            in: path
+            name: id
+            required: true
+            schema:
+              type: string
+              example: 5e6be89ee6aa436299950c3f
+        responses:
+          '200':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Blockage'
+            description: OK
+          '400':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error400'
+            description: >-
+              Bad Request. Validation failed for the given object in the HTTP Body
+              or Request parameters.
+          '401':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401NotActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401Invalid'
+            description: >-
+              Unauthorized. Not valid or inactive subscription key present in the
+              HTTP Header.
+          '500':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error500'
+            description: >-
+              Internal server error. There was an error on the server while
+              processing the request.
+        security:
+          - X-API-Key: []
+        x-codeSamples: []
+        summary: Get blocked amount by ID
+        tags:
+          - Account
+    /v3/ledger/account/block/account/{id}:
+      delete:
+        description: >-
+          <h4>1 credit per API call, 1 credit for each deleted blockage. 1 API
+          call + 2 blockages  = 3 credits.</h4><br/><p>Unblocks previously blocked
+          amounts in an account. Increases the available balance in the account
+          where the amount was blocked.</p>
+        operationId: deleteAllBlockAmount
+        parameters:
+          - description: Account ID
+            in: path
+            name: id
+            required: true
+            schema:
+              type: string
+              example: 5e6be89ee6aa436299950c3f
+        responses:
+          '204':
+            description: OK
+          '400':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error400'
+            description: >-
+              Bad Request. Validation failed for the given object in the HTTP Body
+              or Request parameters.
+          '401':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401NotActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401Invalid'
+            description: >-
+              Unauthorized. Not valid or inactive subscription key present in the
+              HTTP Header.
+          '403':
+            description: >-
+              Forbidden. The request is authenticated, but it is not possible to
+              perform the required operation due to a logical error or invalid
+              permissions.
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403AccountNotExists'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403CustomerNotExists'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403BlockDelete'
+          '500':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error500'
+            description: >-
+              Internal server error. There was an error on the server while
+              processing the request.
+        security:
+          - X-API-Key: []
+        x-codeSamples: []
+        summary: Unblock all blocked amounts in an account
+        tags:
+          - Account
+    /v3/ledger/account/{id}/activate:
+      put:
+        description: <h4>2 credits per API call.</h4><br/><p>Activates an account.</p>
+        operationId: activateAccount
+        parameters:
+          - description: Account ID
+            in: path
+            name: id
+            required: true
+            schema:
+              type: string
+              example: 5e68c66581f2ee32bc354087
+        responses:
+          '204':
+            description: OK
+          '400':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error400'
+            description: >-
+              Bad Request. Validation failed for the given object in the HTTP Body
+              or Request parameters.
+          '401':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401NotActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401Invalid'
+            description: >-
+              Unauthorized. Not valid or inactive subscription key present in the
+              HTTP Header.
+          '403':
+            description: >-
+              Forbidden. The request is authenticated, but it is not possible to
+              perform the required operation due a to logical error or invalid
+              permissions.
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403AccountNotExists'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403AccountActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403CustomerNotExists'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403AccountCustomerInactive'
+          '500':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error500'
+            description: >-
+              Internal server error. There was an error on the server while
+              processing the request.
+        security:
+          - X-API-Key: []
+        x-codeSamples: []
+        summary: Activate account
+        tags:
+          - Account
+    /v3/ledger/account/{id}/deactivate:
+      put:
+        description: >-
+          <h4>2 credits per API call.</h4><br/><p>Deactivates an account. Only
+          accounts with account and available balances of zero can be deactivated.
+          Deactivated accounts are not visible in the list of accounts, it is not
+          possible to send funds to these accounts or perform transactions.
+          However, they are still present in the ledger and all transaction
+          histories.</p>
+        operationId: deactivateAccount
+        parameters:
+          - description: Account ID
+            in: path
+            name: id
+            required: true
+            schema:
+              type: string
+              example: 5e68c66581f2ee32bc354087
+        responses:
+          '204':
+            description: OK
+          '400':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error400'
+            description: >-
+              Bad Request. Validation failed for the given object in the HTTP Body
+              or Request parameters.
+          '401':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401NotActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401Invalid'
+            description: >-
+              Unauthorized. Not valid or inactive subscription key present in the
+              HTTP Header.
+          '403':
+            description: >-
+              Forbidden. The request is authenticated, but it is not possible to
+              perform the required operation due to a logical error or invalid
+              permissions.
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403AccountNotExists'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403AccountInactive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403AccountBalanceNonZero'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403TradeBalanceNonZero'
+          '500':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error500'
+            description: >-
+              Internal server error. There was an error on the server while
+              processing the request.
+        security:
+          - X-API-Key: []
+        x-codeSamples: []
+        summary: Deactivate account
+        tags:
+          - Account
+    /v3/ledger/account/{id}/freeze:
+      put:
+        description: >-
+          <h4>2 credits per API call.</h4><br/><p>Disables all outgoing
+          transactions. Incoming transactions to the account are available. When
+          an account is frozen, its available balance is set to 0. This operation
+          will create a new blockage of type ACCOUNT_FROZEN, which is
+          automatically deleted when the account is unfrozen.</p>
+        operationId: freezeAccount
+        parameters:
+          - description: Account ID
+            in: path
+            name: id
+            required: true
+            schema:
+              type: string
+              example: 5e68c66581f2ee32bc354087
+        responses:
+          '204':
+            description: OK
+          '400':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error400'
+            description: >-
+              Bad Request. Validation failed for the given object in the HTTP Body
+              or Request parameters.
+          '401':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401NotActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401Invalid'
+            description: >-
+              Unauthorized. Not valid or inactive subscription key present in the
+              HTTP Header.
+          '403':
+            description: >-
+              Forbidden. The request is authenticated, but it is not possible to
+              perform the required operation due to a logical error or invalid
+              permissions.
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403AccountNotExists'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403AccountFrozen'
+          '500':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error500'
+            description: >-
+              Internal server error. There was an error on the server while
+              processing the request.
+        security:
+          - X-API-Key: []
+        x-codeSamples: []
+        summary: Freeze account
+        tags:
+          - Account
+    /v3/ledger/account/{id}/unfreeze:
+      put:
+        description: >-
+          <h4>2 credits per API call.</h4><br/><p>Unfreezes a previously frozen
+          account. Unfreezing a non-frozen account not affect the account.</p>
+        operationId: unfreezeAccount
+        parameters:
+          - description: Account ID
+            in: path
+            name: id
+            required: true
+            schema:
+              type: string
+              example: 5e68c66581f2ee32bc354087
+        responses:
+          '204':
+            description: OK
+          '400':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error400'
+            description: >-
+              Bad Request. Validation failed for the given object in the HTTP Body
+              or Request parameters.
+          '401':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401NotActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401Invalid'
+            description: >-
+              Unauthorized. Not valid or inactive subscription key present in the
+              HTTP Header.
+          '403':
+            description: >-
+              Forbidden. The request is authenticated, but it is not possible to
+              perform the required operation due to a logical error or invalid
+              permissions.
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403AccountNotExists'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403AccountNotFrozen'
+          '500':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error500'
+            description: >-
+              Internal server error. There was an error on the server while
+              processing the request.
+        security:
+          - X-API-Key: []
+        x-codeSamples: []
+        summary: Unfreeze account
+        tags:
+          - Account
+    /v3/ledger/transaction:
+      post:
+        description: >
+          <h4>4 credits per API call.</h4><br/>
+
+          <p>Sends a payment within Tatum Private Ledger. All assets are settled
+          instantly.<br/>
+
+          When a transaction is settled, 2 transaction records are created, 1 for
+          each of the participants. These 2 records are connected via a
+          transaction reference, which is the same for both of them.<br/>
+
+          This method is only used for transferring assets between accounts within
+          Tatum and will not send any funds to blockchain addresses.<br/>
+
+          If there is an insufficient balance in the sender account, no
+          transaction is recorded.<br/>
+
+          It is possible to perform an anonymous transaction where the sender
+          account is not visible for the recipient.<br/>
+
+          The FIAT currency value of every transaction is calculated
+          automatically. The FIAT value is based on the accountingCurrency of the
+          account connected to the transaction and is available in the marketValue
+          parameter of the transaction.</p>
+        operationId: sendTransaction
+        requestBody:
+          content:
+            application/json:
+              schema:
+                $ref: '../../components/schemas.yml#/components/schemas/CreateTransaction'
+          required: true
+        responses:
+          '200':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/TransactionResult'
+            description: OK
+          '400':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error400'
+            description: >-
+              Bad Request. Validation failed for the given object in the HTTP Body
+              or Request parameters.
+          '401':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401NotActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401Invalid'
+            description: >-
+              Unauthorized. Not valid or inactive subscription key present in the
+              HTTP Header.
+          '403':
+            description: >-
+              Forbidden. The request is authenticated, but it is not possible to
+              perform the required operation due to a logical error or invalid
+              permissions.
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403AmountFormat'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403TxSenderNotFound'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403ComplianceBtc'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403ComplianceEth'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403RateNotFound'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403VCNotFound'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403TxSenderFrozen'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403TxSenderCustomerDisabled'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403TxRecipientNotFound'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403TxCurrency'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403TxBalance'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403TxAmountBtc'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403TxAmountEth'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403TxNotCompliant'
+          '500':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error500'
+            description: >-
+              Internal server error. There was an error on the server while
+              processing the request.
+        security:
+          - X-API-Key: []
+        x-codeSamples: []
+        summary: Send payment
+        tags:
+          - Transaction
+    /v3/ledger/transaction/batch:
+      post:
+        description: >
+          <h4>2 + 2 * N per API call. (N - count of transactions)</h4><br/>
+
+          <p>Sends the N payments within Tatum Private Ledger. All assets are
+          settled instantly.<br/>
+
+          When a transaction is settled, 2 transaction records are created, 1 for
+          each of the participants. These 2 records are connected via a
+          transaction reference, which is the same for both of them.<br/>
+
+          This method is only used for transferring assets between accounts within
+          Tatum and will not send any funds to blockchain addresses.<br/>
+
+          If there is an insufficient balance in the sender account, no
+          transaction is recorded.<br/>
+
+          It is possible to perform an anonymous transaction where the sender
+          account is not visible for the recipient.<br/>
+
+          The FIAT currency value of every transaction is calculated
+          automatically. The FIAT value is based on the accountingCurrency of the
+          account connected to the transaction and is available in the marketValue
+          parameter of the transaction.</p>
+        operationId: sendTransactionBatch
+        requestBody:
+          content:
+            application/json:
+              schema:
+                $ref: '../../components/schemas.yml#/components/schemas/BatchCreateTransaction'
+          required: true
+        responses:
+          '200':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/BatchTransactionResult'
+            description: OK
+          '400':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error400'
+            description: >-
+              Bad Request. Validation failed for the given object in the HTTP Body
+              or Request parameters.
+          '401':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401NotActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401Invalid'
+            description: >-
+              Unauthorized. Not valid or inactive subscription key present in the
+              HTTP Header.
+          '403':
+            description: >-
+              Forbidden. The request is authenticated, but it is not possible to
+              perform the required operation due to a logical error or invalid
+              permissions.
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403AmountFormat'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403TxSenderNotFound'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403ComplianceBtc'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403ComplianceEth'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403RateNotFound'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403VCNotFound'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403TxSenderFrozen'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403TxSenderCustomerDisabled'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403TxRecipientNotFound'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403TxCurrency'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403TxBalance'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403TxAmountBtc'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403TxAmountEth'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error403TxNotCompliant'
+          '500':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error500'
+            description: >-
+              Internal server error. There was an error on the server while
+              processing the request.
+        security:
+          - X-API-Key: []
+        x-codeSamples: []
+        summary: Send payment in batch
+        tags:
+          - Transaction
+    /v3/ledger/transaction/account:
+      post:
+        description: >-
+          <h4>1 credit per API call.</h4><br/><p>Finds transactions for the
+          account identified by the given account ID.</p>
+        operationId: getTransactionsByAccountId
+        parameters:
+          - description: >-
+              Max number of items per page is 50. Either count or pageSize is
+              accepted.
+            in: query
+            name: pageSize
+            schema:
+              type: number
+              example: 10
+              maximum: 50
+              minimum: 1
+          - description: Offset to obtain the next page of data.
+            in: query
+            name: offset
+            schema:
+              type: number
+              example: 0
+          - description: >-
+              Get the total transaction count based on the filter. Either count or
+              pageSize is accepted.
+            in: query
+            name: count
+            example: true
+            schema:
+              type: boolean
+        requestBody:
+          content:
+            application/json:
+              schema:
+                $ref: '../../components/schemas.yml#/components/schemas/TransactionFilter'
+          required: true
+        responses:
+          '200':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - items:
+                        $ref: '../../components/schemas.yml#/components/schemas/Transaction'
+                      type: array
+                    - type: number
+                      description: Total transaction count.
+                      example: 20
+            description: OK
+          '400':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error400'
+            description: >-
+              Bad Request. Validation failed for the given object in the HTTP Body
+              or Request parameters.
+          '401':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401NotActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401Invalid'
+            description: >-
+              Unauthorized. Not valid or inactive subscription key present in the
+              HTTP Header.
+          '500':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error500'
+            description: >-
+              Internal server error. There was an error on the server while
+              processing the request.
+        security:
+          - X-API-Key: []
+        x-codeSamples: []
+        summary: Find transactions for account.
+        tags:
+          - Transaction
+    /v3/ledger/transaction/customer:
+      post:
+        description: >-
+          <h4>1 credit per API call.</h4><br/><p>Finds transactions for all
+          accounts of the customer identified by the given internal customer
+          ID.</p>
+        operationId: getTransactionsByCustomerId
+        parameters:
+          - description: >-
+              Max number of items per page is 50. Either count or pageSize is
+              accepted.
+            in: query
+            name: pageSize
+            schema:
+              type: number
+              example: 10
+              maximum: 50
+              minimum: 1
+          - description: Offset to obtain the next page of data.
+            in: query
+            name: offset
+            schema:
+              type: number
+              example: 0
+          - description: >-
+              Get total transaction count based on the filter. Either count or
+              pageSize is accepted.
+            in: query
+            name: count
+            example: true
+            schema:
+              type: boolean
+        requestBody:
+          content:
+            application/json:
+              schema:
+                $ref: '../../components/schemas.yml#/components/schemas/TransactionFilterCustomer'
+          required: true
+        responses:
+          '200':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - items:
+                        $ref: '../../components/schemas.yml#/components/schemas/Transaction'
+                      type: array
+                    - type: number
+                      description: Total transaction count.
+                      example: 20
+            description: OK
+          '400':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error400'
+            description: >-
+              Bad Request. Validation failed for the given object in the HTTP Body
+              or Request parameters.
+          '401':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401NotActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401Invalid'
+            description: >-
+              Unauthorized. Not valid or inactive subscription key present in the
+              HTTP Header.
+          '500':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error500'
+            description: >-
+              Internal server error. There was an error on the server while
+              processing the request.
+        security:
+          - X-API-Key: []
+        x-codeSamples: []
+        summary: Find transactions for a customer across all of the customer's accounts.
+        tags:
+          - Transaction
+    /v3/ledger/transaction/ledger:
+      post:
+        description: >-
+          <h4>1 credit per API call.</h4><br/><p>Find transactions across whole
+          ledger.</p>
+        operationId: getTransactions
+        parameters:
+          - description: >-
+              Max number of items per page is 50. Either count or pageSize is
+              accepted.
+            in: query
+            name: pageSize
+            schema:
+              type: number
+              example: 10
+              maximum: 50
+              minimum: 1
+          - description: Offset to obtain the next page of data.
+            in: query
+            name: offset
+            schema:
+              type: number
+              example: 0
+          - description: >-
+              Get the total transaction count based on the filter. Either count or
+              pageSize is accepted.
+            in: query
+            name: count
+            example: true
+            schema:
+              type: boolean
+        requestBody:
+          content:
+            application/json:
+              schema:
+                $ref: '../../components/schemas.yml#/components/schemas/TransactionFilterLedger'
+          required: true
+        responses:
+          '200':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - items:
+                        $ref: '../../components/schemas.yml#/components/schemas/Transaction'
+                      type: array
+                    - type: number
+                      description: Total transaction count.
+                      example: 20
+            description: OK
+          '400':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error400'
+            description: >-
+              Bad Request. Validation failed for the given object in the HTTP Body
+              or Request parameters.
+          '401':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401NotActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401Invalid'
+            description: >-
+              Unauthorized. Not valid or inactive subscription key present in the
+              HTTP Header.
+          '500':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error500'
+            description: >-
+              Internal server error. There was an error on the server while
+              processing the request.
+        security:
+          - X-API-Key: []
+        x-codeSamples: []
+        summary: Find transactions within the ledger.
+        tags:
+          - Transaction
+    /v3/ledger/transaction/reference/{reference}:
+      get:
+        description: >-
+          <h4>1 credit per API call.</h4><br/><p>Finds transactions for all
+          accounts with the given reference.</p>
+        operationId: getTransactionsByReference
+        parameters:
+          - in: path
+            name: reference
+            required: true
+            schema:
+              maxLength: 100
+              minLength: 20
+              type: string
+        responses:
+          '200':
+            content:
+              application/json:
+                schema:
+                  items:
+                    $ref: '../../components/schemas.yml#/components/schemas/Transaction'
+                  type: array
+            description: OK
+          '400':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error400'
+            description: >-
+              Bad Request. Validation failed for the given object in the HTTP Body
+              or Request parameters.
+          '401':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401NotActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401Invalid'
+            description: >-
+              Unauthorized. Not valid or inactive subscription key present in the
+              HTTP Header.
+          '500':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error500'
+            description: >-
+              Internal server error. There was an error on the server while
+              processing the request.
+        security:
+          - X-API-Key: []
+        x-codeSamples: []
+        summary: Find transactions with a given reference across all accounts.
+        tags:
+          - Transaction
+    /v3/ledger/deposits:
+      get:
+        description: >-
+          <h4>1 credit per API call.</h4><br/><p>Lists all deposits for API
+          key.</p>
+        operationId: getDeposits
+        parameters:
+          - description: Max number of items per page is 50.
+            in: query
+            name: pageSize
+            schema:
+              type: number
+              example: 20
+              maximum: 50
+              minimum: 1
+            required: false
+          - description: Page number
+            in: query
+            name: page
+            schema:
+              type: number
+              example: 0
+          - description: Direction of sorting. Can be asc or desc
+            in: query
+            name: sort
+            schema:
+              type: string
+              enum:
+                - asc
+                - desc
+              example: asc
+          - description: Status of the deposit
+            in: query
+            name: status
+            schema:
+              type: string
+              enum:
+                - Done
+                - InProgress
+              example: Done
+          - description: Filter by currency
+            name: currency
+            in: query
+            schema:
+              type: string
+              example: BTC
+          - description: Filter by txId
+            name: txId
+            in: query
+            schema:
+              type: string
+              example: 2.0589336591536965e+76
+              maxLength: 80
+              minLength: 10
+          - description: Filter by to address
+            name: to
+            in: query
+            schema:
+              type: string
+              example: 9.557027372635822e+47
+          - description: Filter by account id
+            name: accountId
+            in: query
+            schema:
+              type: string
+              example: 628bae6095e9ad06b52eb229
+        responses:
+          '200':
+            content:
+              application/json:
+                schema:
+                  items:
+                    $ref: '../../components/schemas.yml#/components/schemas/Deposit'
+                  type: array
+            description: OK
+          '400':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error400'
+            description: >-
+              Bad Request. Validation failed for the given object in the HTTP Body
+              or Request parameters.
+          '401':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401NotActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401Invalid'
+            description: >-
+              Unauthorized. Not valid or inactive subscription key present in the
+              HTTP Header.
+          '500':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error500'
+            description: >-
+              Internal server error. There was an error on the server while
+              processing the request.
+        security:
+          - X-API-Key: []
+        x-codeSamples: []
+        summary: List all deposits for product
+        tags:
+          - Deposit
+    /v3/ledger/deposits/count:
+      get:
+        description: >-
+          <h4>1 credit per API call.</h4><br/><p>Counts total entities found by
+          get deposits request.</p>
+        operationId: getDepositsCount
+        parameters:
+          - description: Max number of items per page is 50.
+            in: query
+            name: pageSize
+            schema:
+              type: number
+              example: 20
+              maximum: 50
+              minimum: 1
+            required: false
+          - description: Page number
+            in: query
+            name: page
+            schema:
+              type: number
+              example: 0
+          - description: Direction of sorting. Can be asc or desc
+            in: query
+            name: sort
+            schema:
+              type: string
+              enum:
+                - asc
+                - desc
+              example: asc
+          - description: Type of the deposit
+            in: query
+            name: status
+            schema:
+              type: string
+              enum:
+                - Done
+                - InProgress
+              example: Done
+          - description: Filter by currency
+            name: currency
+            in: query
+            schema:
+              type: string
+              example: BTC
+          - description: Filter by txId
+            name: txId
+            in: query
+            schema:
+              type: string
+              example: 2.0589336591536965e+76
+              maxLength: 80
+              minLength: 10
+          - description: Filter by to address
+            name: to
+            in: query
+            schema:
+              type: string
+              example: 9.557027372635822e+47
+          - description: Filter by account id
+            name: accountId
+            in: query
+            schema:
+              type: string
+              example: 628bae6095e9ad06b52eb229
+        responses:
+          '200':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/EntitiesCount'
+            description: OK
+          '400':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error400'
+            description: >-
+              Bad Request. Validation failed for the given object in the HTTP Body
+              or Request parameters.
+          '401':
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401NotActive'
+                    - $ref: '../../components/schemas.yml#/components/schemas/Error401Invalid'
+            description: >-
+              Unauthorized. Not valid or inactive subscription key present in the
+              HTTP Header.
+          '500':
+            content:
+              application/json:
+                schema:
+                  $ref: '../../components/schemas.yml#/components/schemas/Error500'
+            description: >-
+              Internal server error. There was an error on the server while
+              processing the request.
+        security:
+          - X-API-Key: []
+        x-codeSamples: []
+        summary: Count of found entities for get deposits request
+        tags:
+          - Deposit
+  
 servers:
   - url: https://api.tatum.io/

@@ -17,30 +17,30 @@ jobs:
       - name: Check out repo 📚
         uses: actions/checkout@v3
 
-      - name: Data API
+      - name: Blockchain Data
         env:
           README_API_KEY: ${{ secrets.README_API_KEY }}
         uses: readmeio/rdme@v8
         with:
-          rdme: openapi blockchain_data/openapi.yml --key=${{ secrets.README_API_KEY }} --id=65a2484492ed39004fabe7d0
+          rdme: openapi blockchain_data/openapi.yml --key=${{ secrets.README_API_KEY }} --id=65b89aca5d7811001010ed75
 
       - name: Notifications
         env:
           README_API_KEY: ${{ secrets.README_API_KEY }}
         uses: readmeio/rdme@v8
         with:
-          rdme: openapi notifications/openapi.yml --key=${{ secrets.README_API_KEY }} --id=65a248929e71b8002a495505
+          rdme: openapi notifications/openapi.yml --key=${{ secrets.README_API_KEY }} --id=65b89afa7868820016d7f652
 
       - name: Blockhain Utility
         env:
           README_API_KEY: ${{ secrets.README_API_KEY }}
         uses: readmeio/rdme@v8
         with:
-          rdme: openapi blockchain_utility/openapi.yml --key=${{ secrets.README_API_KEY }} --id=65a67d65d76622006bae40ab
+          rdme: openapi blockchain_utility/openapi.yml --key=${{ secrets.README_API_KEY }} --id=65b89df5360e780022ac7d53
 
       - name: RPC
         env:
           README_API_KEY: ${{ secrets.README_API_KEY }}
         uses: readmeio/rdme@v8
         with:
-          rdme: openapi rpc/openapi.yml --key=${{ secrets.README_API_KEY }} --id=65a248ea65356500108730cc
+          rdme: openapi rpc/openapi.yml --key=${{ secrets.README_API_KEY }} --id=65b89f2c763bfe002336c7c2

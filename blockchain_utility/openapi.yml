@@ -4,8 +4,8 @@ info:
   version: "1.0.0"
 paths:
   # VA
-  /v3/data/collections:
-    $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1data~1collections"
+  /v3/ledger/account:
+    $ref: "blockchain_utility/operations/virtualAccounts.yml#/paths/~1v3~1ledger~1account"
 
 servers:
   - url: https://api.tatum.io/
